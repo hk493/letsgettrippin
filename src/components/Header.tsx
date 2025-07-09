@@ -3,29 +3,39 @@ import { Link, useLocation } from 'react-router-dom';
 import { Home, Globe, User, LogOut, BookOpen, Smartphone, CreditCard, Star, List, HelpCircle, BarChart2, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import LoginModal from './LoginModal';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const { user, logout } = useAuth();
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   const navLinks = [
-    { to: '/', label: 'ホーム', icon: <Home className="w-5 h-5" /> },
-    { to: '/language', label: '言語選択', icon: <Globe className="w-5 h-5" /> },
-    { to: '/plan', label: '旅行プラン作成', icon: <BookOpen className="w-5 h-5" /> },
-    { to: '/plan/preview', label: 'プランプレビュー', icon: <List className="w-5 h-5" /> },
-    { to: '/esim', label: 'eSIMプラン', icon: <Smartphone className="w-5 h-5" /> },
-    { to: '/payment', label: 'お支払い', icon: <CreditCard className="w-5 h-5" /> },
-    { to: '/esim/qr', label: 'eSIMアクティベーション', icon: <CheckCircle className="w-5 h-5" /> },
-    { to: '/dashboard', label: 'ダッシュボード', icon: <User className="w-5 h-5" /> },
-    { to: '/reviews', label: '体験レビュー', icon: <Star className="w-5 h-5" /> },
-    { to: '/devices', label: 'デバイス一覧', icon: <Smartphone className="w-5 h-5" /> },
-    { to: '/faq', label: 'FAQ/サポート', icon: <HelpCircle className="w-5 h-5" /> },
-    { to: '/admin', label: '管理者', icon: <BarChart2 className="w-5 h-5" />, adminOnly: true },
+    { to: '/', label: t('nav.home'), icon: <Home className="w-5 h-5" /> },
+    { to: '/language', label: t('nav.language') || '言語選択', icon: <Globe className="w-5 h-5" /> },
+    { to: '/plan', label: t('nav.plan'), icon: <BookOpen className="w-5 h-5" /> },
+    { to: '/plan/preview', label: t('nav.plan_preview') || 'プランプレビュー', icon: <List className="w-5 h-5" /> },
+    { to: '/esim', label: t('nav.esim') || 'eSIMプラン', icon: <Smartphone className="w-5 h-5" /> },
+    { to: '/payment', label: t('nav.payment') || 'お支払い', icon: <CreditCard className="w-5 h-5" /> },
+    { to: '/esim/qr', label: t('nav.esim_qr') || 'eSIMアクティベーション', icon: <CheckCircle className="w-5 h-5" /> },
+    { to: '/dashboard', label: t('nav.dashboard'), icon: <User className="w-5 h-5" /> },
+    { to: '/reviews', label: t('nav.reviews') || '体験レビュー', icon: <Star className="w-5 h-5" /> },
+    { to: '/devices', label: t('nav.devices') || 'デバイス一覧', icon: <Smartphone className="w-5 h-5" /> },
+    { to: '/faq', label: t('nav.faq') || 'FAQ/サポート', icon: <HelpCircle className="w-5 h-5" /> },
+    { to: '/admin', label: t('nav.admin') || '管理者', icon: <BarChart2 className="w-5 h-5" />, adminOnly: true },
   ];
 
   const isActive = (path: string) => location.pathname === path;
+
+  // 言語セレクターUI
+  const languageOptions = [
+    { code: 'en', label: 'English' },
+    { code: 'ja', label: '日本語' },
+    { code: 'ko', label: '한국어' },
+    { code: 'zh', label: '中文' },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur shadow border-b border-pink-100 h-20 flex items-center px-4 md:px-10">
@@ -48,6 +58,19 @@ const Header: React.FC = () => {
             </Link>
           );
         })}
+        {/* 言語セレクター追加 */}
+        <div className="ml-4">
+          <select
+            className="border rounded px-2 py-1 text-sm"
+            value={language}
+            onChange={e => setLanguage(e.target.value as any)}
+            aria-label="言語選択"
+          >
+            {languageOptions.map(opt => (
+              <option key={opt.code} value={opt.code}>{opt.label}</option>
+            ))}
+          </select>
+        </div>
         {user ? (
           <button onClick={logout} className="flex items-center gap-1 px-3 py-2 rounded-lg font-medium text-gray-700 hover:bg-blue-50">
             <LogOut className="w-5 h-5" /> ログアウト
@@ -78,6 +101,19 @@ const Header: React.FC = () => {
               </Link>
             );
           })}
+          {/* 言語セレクター追加 */}
+          <div className="ml-4">
+            <select
+              className="border rounded px-2 py-1 text-sm"
+              value={language}
+              onChange={e => setLanguage(e.target.value as any)}
+              aria-label="言語選択"
+            >
+              {languageOptions.map(opt => (
+                <option key={opt.code} value={opt.code}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
           {user ? (
             <button onClick={logout} className="flex items-center gap-2 px-6 py-4 font-medium text-gray-700 hover:bg-blue-50">
               <LogOut className="w-5 h-5" /> ログアウト
