@@ -20,7 +20,7 @@ const TripDetails: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div style={{ minHeight: '100vh', backgroundImage: "url('/PHOTO-2025-06-28-13-41-57.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <div className="max-w-3xl mx-auto px-4 py-10">
         {/* ヘッダー */}
         <div className="flex items-center mb-8">

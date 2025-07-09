@@ -44,6 +44,9 @@ const PlanningFlow: React.FC = () => {
     selectedPlan: null,
     selectedPlaces: []
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [aiPlan, setAiPlan] = useState<any>(null);
 
   const plans: Plan[] = [
     {
@@ -104,6 +107,19 @@ const PlanningFlow: React.FC = () => {
 
   const handlePlanSelect = (plan: Plan) => {
     setFormData({ ...formData, selectedPlan: plan });
+  };
+
+  const handleGeneratePlan = async (prompt: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await generateTravelPlan(prompt);
+      setAiPlan(res);
+    } catch (e: any) {
+      setError(e.message || 'プラン生成に失敗しました');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = () => {
@@ -372,6 +388,8 @@ const PlanningFlow: React.FC = () => {
 
         {/* Step Content */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          {loading && <div className="text-center text-blue-600 py-8">AIプラン生成中...</div>}
+          {error && <div className="text-center text-red-600 py-8">{error}<button onClick={() => handleGeneratePlan(/* 必要なprompt */)} className="ml-4 px-4 py-2 bg-blue-500 text-white rounded">再試行</button></div>}
           {renderStepContent()}
         </div>
 
