@@ -4,14 +4,34 @@ import App from './App.tsx';
 import ErrorBoundary from './components/ErrorBoundary.tsx';
 import './index.css';
 
-// グローバルエラーハンドラーを追加
+// より詳細なグローバルエラーハンドラーを追加
 window.addEventListener('error', (event) => {
   console.error('Global error:', event.error);
+  console.error('Error message:', event.message);
+  console.error('Error filename:', event.filename);
+  console.error('Error lineno:', event.lineno);
+  console.error('Error colno:', event.colno);
 });
 
 window.addEventListener('unhandledrejection', (event) => {
   console.error('Unhandled promise rejection:', event.reason);
+  console.error('Promise rejection details:', event);
 });
+
+// React エラーハンドラー
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  originalConsoleError.apply(console, args);
+  // エラーの詳細をログに出力
+  if (args[0] && typeof args[0] === 'string' && args[0].includes('Error')) {
+    console.error('React Error Details:', args);
+  }
+};
+
+// 開発環境でのみ詳細ログを有効化
+if (import.meta.env.DEV) {
+  console.log('Development mode - detailed error logging enabled');
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
