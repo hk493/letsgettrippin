@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useLanguage } from '../contexts/LanguageContext';
-import { StickyBanner } from '../components/StickyBanner';
-import { Footer } from '../components/Footer';
-import { CollapsibleDeviceSection } from '../components/CollapsibleDeviceSection';
+import { useLanguage } from '../context/LanguageContext'
+import { StickyBanner } from './StickyBanner'
+import { Footer } from './Footer'
+import { CollapsibleDeviceSection } from './CollapsibleDeviceSection'
 import { SmartphoneIcon, ChevronDownIcon, ChevronUpIcon, CheckIcon, InfoIcon, TabletIcon } from 'lucide-react'
 
-export const DevicesPage = ({ onBack }: { onBack: () => void }) => {
-  const { t, language, setLanguage } = useLanguage();
+export const DevicesPage = ({ onBack }) => {
+  const { t, currentLanguage, changeLanguage } = useLanguage()
 
   // Handle devices navigation (stay on same page)
   const handleDevicesClick = () => {
@@ -148,11 +148,9 @@ export const DevicesPage = ({ onBack }: { onBack: () => void }) => {
         vivo: 'Vivo V29 Lite 5G eSIM은 유럽에서만 지원됩니다.',
       },
     },
-  } as const;
-  const supportedLangs = ['en', 'ja', 'zh', 'ko'] as const;
-  type LangKey = typeof supportedLangs[number];
-  const langKey: LangKey = supportedLangs.includes(language as LangKey) ? (language as LangKey) : 'en';
-  const translation = deviceTranslations[langKey];
+  }
+
+  const translation = deviceTranslations[currentLanguage.code] || deviceTranslations.en
 
   const deviceData = {
     apple: {
@@ -186,7 +184,7 @@ export const DevicesPage = ({ onBack }: { onBack: () => void }) => {
         'iPhone 16 Pro',
         'iPhone 16 Pro Max',
       ],
-      notes: [...translation.deviceNotes.apple] as string[],
+      notes: translation.deviceNotes.apple,
     },
     google: {
       devices: [
@@ -215,7 +213,7 @@ export const DevicesPage = ({ onBack }: { onBack: () => void }) => {
         'Google Pixel 9 Pro',
         'Google Pixel 9 Pro XL',
       ],
-      notes: [...translation.deviceNotes.google] as string[],
+      notes: translation.deviceNotes.google,
     },
     samsung: {
       devices: [
@@ -255,7 +253,7 @@ export const DevicesPage = ({ onBack }: { onBack: () => void }) => {
         'Samsung Galaxy A55 5G',
         'Samsung Galaxy A35',
       ],
-      notes: [...translation.deviceNotes.samsung] as string[],
+      notes: translation.deviceNotes.samsung,
     },
     honor: {
       devices: [
@@ -465,7 +463,7 @@ export const DevicesPage = ({ onBack }: { onBack: () => void }) => {
   }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundImage: "url('/PHOTO-2025-06-28-13-41-57.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <div className="min-h-screen bg-gray-50">
       {/* Sticky Banner */}
       <StickyBanner 
         onDevicesClick={handleDevicesClick}

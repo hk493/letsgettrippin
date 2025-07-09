@@ -113,7 +113,7 @@ const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', backgroundImage: "url('/japan-background.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Background */}
