@@ -1,15 +1,9 @@
 // eSIMGO APIクライアント雛形
-interface ImportMetaEnv {
-  VITE_ESIM_BASE: string;
-  VITE_ESIM_TOKEN: string;
-}
 
-declare interface ImportMeta {
-  env: ImportMetaEnv;
-}
+const ESIM_BASE = import.meta.env.VITE_ESIM_BASE;
+const ESIM_TOKEN = import.meta.env.VITE_ESIM_TOKEN;
 
-export async function issueEsim(params: any) {
-  // params例: { planId, email, device }
+export async function issueEsim(params: Record<string, string | number>) {
   const res = await fetch(`${ESIM_BASE}/api/v1/esim/issue`, {
     method: 'POST',
     headers: {

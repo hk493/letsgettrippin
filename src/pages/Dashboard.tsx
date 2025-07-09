@@ -1,29 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { 
   UserIcon, 
   ShoppingBagIcon, 
   QrCodeIcon, 
-  SettingsIcon, 
-  LogOutIcon, 
   EditIcon, 
   SaveIcon, 
-  XIcon,
   WifiIcon,
-  GlobeIcon,
   MapPinIcon,
-  StarIcon,
-  CalendarIcon,
   TrendingUpIcon,
-  HeartIcon
+  HeartIcon,
+  CalendarIcon
 } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
-  const { user, logout, updateUserProfile } = useAuth();
+  const { user, updateUserProfile } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     name: user?.name || '',
@@ -115,7 +108,7 @@ const Dashboard: React.FC = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            Let's Get Trippin', {user?.name || 'Traveler'}!
+            Let&apos;s Get Trippin&apos;, {user?.name || 'Traveler'}!
           </h1>
           <p className="text-gray-600 text-lg">
             Your Japan adventure dashboard - where the journey begins

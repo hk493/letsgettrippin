@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CreditCard, Loader2, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { createCheckoutSession } from '../utils/stripe';
 
 const PaymentScreen: React.FC = () => {
   const location = useLocation();
@@ -22,16 +21,18 @@ const PaymentScreen: React.FC = () => {
       // const res = await createCheckoutSession({ planId: plan.id, ... })
       // window.location.href = res.url;
       navigate('/esim/qr', { state: { plan } });
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'purchase', {
+      if (typeof window !== 'undefined' && 'gtag' in window) {
+        const gtag = (window as { gtag: (...args: unknown[]) => void }).gtag;
+        gtag('event', 'purchase', {
           value: plan.price,
           currency: 'JPY',
           plan_name: plan.name,
           plan_id: plan.id
         });
       }
-    } catch (e: any) {
-      setError(e.message || '決済エラーが発生しました');
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : '決済エラーが発生しました';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

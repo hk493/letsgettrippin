@@ -1,11 +1,4 @@
 // OpenAI GPT APIクライアント雛形
-interface ImportMetaEnv {
-  VITE_OPENAI_API_KEY: string;
-}
-
-declare interface ImportMeta {
-  env: ImportMetaEnv;
-}
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_BASE_URL = 'https://api.openai.com/v1';

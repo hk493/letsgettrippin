@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useInteractionTracking, useTimeTracking } from '../hooks/useAnalytics';
-import { ArrowRightIcon, GlobeIcon, ZapIcon, ShieldCheckIcon, MapPinIcon, CameraIcon, GiftIcon, StarIcon, PlayIcon, CheckIcon, WifiIcon, SmartphoneIcon, HeartIcon, TrendingUpIcon } from 'lucide-react';
+import { ArrowRightIcon, GlobeIcon, MapPinIcon, PlayIcon, CheckIcon, WifiIcon } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [activeFeature, setActiveFeature] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   
   // Analytics hooks
@@ -52,7 +51,7 @@ const LandingPage: React.FC = () => {
       color: "from-green-500 to-emerald-500"
     },
     {
-      icon: <GiftIcon className="w-8 h-8" />,
+      icon: <PlayIcon className="w-8 h-8" />,
       title: "Exclusive Discounts",
       description: "Save up to 50% at restaurants, attractions, and shops.",
       color: "from-orange-500 to-red-500"
@@ -143,7 +142,7 @@ const LandingPage: React.FC = () => {
             {/* Main Headline */}
             <h1 className={`text-5xl md:text-7xl font-bold mb-6 transform transition-all duration-1000 delay-200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Let's Get Trippin'
+                Let&apos;s Get Trippin&apos;
               </span>
               <br />
               <span className="text-gray-800">Your Japan Adventure Starts Here</span>
@@ -151,7 +150,7 @@ const LandingPage: React.FC = () => {
 
             {/* Subtitle */}
             <p className={`text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto transform transition-all duration-1000 delay-400 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              The ultimate travel companion for your Japan journey. Get connected, get exploring, get trippin'.
+              The ultimate travel companion for your Japan journey. Get connected, get exploring, get trippin&apos;.
             </p>
 
             {/* Value Proposition */}
@@ -190,7 +189,7 @@ const LandingPage: React.FC = () => {
             <div className={`text-center transform transition-all duration-1000 delay-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <div className="flex items-center justify-center space-x-2 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <StarIcon key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  <PlayIcon key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                 ))}
                 <span className="text-gray-600 ml-2">4.9/5 from 10,000+ travelers</span>
               </div>
@@ -247,7 +246,7 @@ const LandingPage: React.FC = () => {
               What Travelers Say
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Join thousands of satisfied travelers who've discovered Japan with DataPocket
+              Join thousands of satisfied travelers who&apos;ve discovered Japan with DataPocket
             </p>
           </div>
 
@@ -267,7 +266,7 @@ const LandingPage: React.FC = () => {
                 <p className="text-gray-600 mb-4">{testimonial.text}</p>
                 <div className="flex items-center">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <StarIcon key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                    <PlayIcon key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                   ))}
                 </div>
               </div>

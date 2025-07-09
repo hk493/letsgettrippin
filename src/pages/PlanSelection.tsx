@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, Star, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { issueEsim } from '../utils/esimApi';
 
 interface EsimPlan {
   id: string;
@@ -18,7 +17,6 @@ const PlanSelection: React.FC = () => {
   const navigate = useNavigate();
   const [plans, setPlans] = useState<EsimPlan[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   // ダミーAPI呼び出し（本来はesimApi.tsで取得）
   useEffect(() => {
@@ -39,7 +37,6 @@ const PlanSelection: React.FC = () => {
   };
 
   if (loading) return <div className="flex justify-center items-center h-64"><Sparkles className="w-8 h-8 animate-spin text-blue-500" /> {t('common.loading')}</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
 
   return (
     <div className="container mx-auto py-10">

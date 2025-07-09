@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MapPinIcon, CalendarIcon, StarIcon, Share2Icon, MapIcon, ArrowLeftIcon, ArrowRightIcon, GlobeIcon, UsersIcon } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { MapPinIcon, CalendarIcon, StarIcon, Share2Icon, UsersIcon, ArrowLeftIcon, GlobeIcon, ArrowRightIcon } from 'lucide-react';
 import AIChat from '../components/AIChat';
 
 const PlanPreview: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { t } = useLanguage();
   
   // 旅行プラン内容はlocation.stateから受け取る（AI生成結果）
-  const [plan, setPlan] = useState(location.state?.plan || t('planpreview.no_plan'));
   const tripData = location.state?.tripData || {};
 
   // ダミー日別タイムライン（本来はplanをパースして生成）
@@ -196,7 +193,7 @@ const PlanPreview: React.FC = () => {
 
         {/* AIチャットUIを右下フローティングで表示 */}
         <div className="fixed bottom-6 right-6 z-50 w-full max-w-xs md:max-w-sm">
-          <AIChat onPlanUpdate={setPlan} />
+          <AIChat onPlanUpdate={() => {}} />
         </div>
       </div>
     </div>

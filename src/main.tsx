@@ -1,45 +1,34 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import ErrorBoundary from './components/ErrorBoundary.tsx';
 import './index.css';
 
-// より詳細なグローバルエラーハンドラーを追加
-window.addEventListener('error', (event) => {
-  console.error('Global error:', event.error);
-  console.error('Error message:', event.message);
-  console.error('Error filename:', event.filename);
-  console.error('Error lineno:', event.lineno);
-  console.error('Error colno:', event.colno);
-});
+// エラーハンドリングを一時的に無効化（無限ループ問題のため）
+// const originalConsoleError = console.error;
+// console.error = (...args) => {
+//   originalConsoleError.apply(console, args);
+// };
 
-window.addEventListener('unhandledrejection', (event) => {
-  console.error('Unhandled promise rejection:', event.reason);
-  console.error('Promise rejection details:', event);
-});
+// グローバルエラーハンドラーも一時的に無効化
+// window.addEventListener('error', (event) => {
+//   console.error('Global error:', event.error);
+// });
 
-// React エラーハンドラー
-const originalConsoleError = console.error;
-console.error = (...args) => {
-  originalConsoleError.apply(console, args);
-  // エラーの詳細をログに出力
-  if (args[0] && typeof args[0] === 'string' && args[0].includes('Error')) {
-    console.error('React Error Details:', args);
-  }
-};
+// window.addEventListener('unhandledrejection', (event) => {
+//   console.error('Unhandled promise rejection:', event.reason);
+// });
 
 // 開発環境でのみ詳細ログを有効化
 if (import.meta.env.DEV) {
   console.log('Development mode - detailed error logging enabled');
 }
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
-  </StrictMode>
-);
+function gtag(...args: unknown[]) {
+  if (typeof window !== 'undefined' && 'dataLayer' in window) {
+    (window as { dataLayer: unknown[] }).dataLayer.push(args);
+  }
+}
 
 // Google Analytics (GA4) setup
 if (import.meta.env.VITE_GA_ID) {
@@ -47,8 +36,17 @@ if (import.meta.env.VITE_GA_ID) {
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GA_ID}`;
   document.head.appendChild(script);
-  (window as any).dataLayer = (window as any).dataLayer || [];
-  function gtag(...args: any[]) {(window as any).dataLayer.push(args);}
+  if (typeof window !== 'undefined') {
+    (window as { dataLayer: unknown[] }).dataLayer = (window as { dataLayer: unknown[] }).dataLayer || [];
+  }
   gtag('js', new Date());
   gtag('config', import.meta.env.VITE_GA_ID);
 }
+
+createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
+  </React.StrictMode>
+);

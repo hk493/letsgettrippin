@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../contexts/LanguageContext';
 import PlaceAutocomplete from '../components/PlaceAutocomplete';
 import { 
   MapPinIcon, 
@@ -11,26 +10,42 @@ import {
   CheckIcon,
   ArrowRightIcon,
   ArrowLeftIcon,
-  GlobeIcon,
-  SmartphoneIcon,
-  GiftIcon,
   StarIcon
 } from 'lucide-react';
 
+interface Plan {
+  id: number;
+  name: string;
+  duration: string;
+  data: string;
+  price: number;
+  features: string[];
+  popular: boolean;
+  color: string;
+}
+
+interface FormData {
+  destination: string;
+  startDate: string;
+  endDate: string;
+  travelers: number;
+  selectedPlan: Plan | null;
+  selectedPlaces: string[];
+}
+
 const PlanningFlow: React.FC = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     destination: '',
     startDate: '',
     endDate: '',
     travelers: 1,
-    selectedPlan: null as any,
-    selectedPlaces: [] as string[]
+    selectedPlan: null,
+    selectedPlaces: []
   });
 
-  const plans = [
+  const plans: Plan[] = [
     {
       id: 1,
       name: "Explorer",
@@ -87,7 +102,7 @@ const PlanningFlow: React.FC = () => {
     setFormData({ ...formData, destination: place.description });
   };
 
-  const handlePlanSelect = (plan: any) => {
+  const handlePlanSelect = (plan: Plan) => {
     setFormData({ ...formData, selectedPlan: plan });
   };
 
@@ -103,10 +118,10 @@ const PlanningFlow: React.FC = () => {
           <div className="space-y-6">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-                Let's Get Trippin'!
+                Let&apos;s Get Trippin&apos;!
               </h2>
               <p className="text-gray-600 text-lg">
-                Let's start planning your perfect Japan adventure
+                Let&apos;s start planning your perfect Japan adventure
               </p>
             </div>
             

@@ -87,7 +87,7 @@ const PlaceAutocomplete: React.FC<PlaceAutocompleteProps> = ({
       />
       {showSuggestions && suggestions.length > 0 && (
         <ul className="absolute z-10 bg-white border w-full mt-1 rounded shadow max-h-60 overflow-y-auto">
-          {suggestions.map((s, i) => (
+          {suggestions.map((s) => (
             <li
               key={s.place_id}
               className="px-3 py-2 hover:bg-blue-100 cursor-pointer"

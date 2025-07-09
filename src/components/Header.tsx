@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Globe, User, LogOut, BookOpen, Smartphone, CreditCard, Star, List, HelpCircle, Settings, Users, Map, CheckCircle, Edit3, BarChart2 } from 'lucide-react';
+import { Home, Globe, User, LogOut, BookOpen, Smartphone, CreditCard, Star, List, HelpCircle, BarChart2, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
 import LoginModal from './LoginModal';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const { user, logout } = useAuth();
-  const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
 
   const navLinks = [

@@ -36,11 +36,9 @@ const AdminDashboard: React.FC = () => {
   const [plans, setPlans] = useState(dummyPlans);
   const [faqs, setFaqs] = useState(dummyFaqs);
   const [reviews, setReviews] = useState(dummyReviews);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // 本番API: 各管理データ取得
-    setLoading(true);
     Promise.all([
       fetchUsers(),
       fetchPlans(),
@@ -54,7 +52,7 @@ const AdminDashboard: React.FC = () => {
         setReviews(reviews);
       })
       .catch(() => {})
-      .finally(() => setLoading(false));
+      .finally(() => {});
   }, []);
 
   return (

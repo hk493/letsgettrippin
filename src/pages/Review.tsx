@@ -11,12 +11,6 @@ interface Review {
   date: string;
 }
 
-const dummyReviews: Review[] = [
-  { id: '1', user: 'Alice', comment: 'Amazing trip! Highly recommend.', rating: 5, date: '2024-06-01' },
-  { id: '2', user: 'Bob', comment: 'eSIM was super convenient.', rating: 4, date: '2024-06-10' },
-  { id: '3', user: 'Carol', comment: 'Support was quick and helpful.', rating: 5, date: '2024-06-15' },
-];
-
 const ReviewPage: React.FC = () => {
   const { t } = useLanguage();
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -45,14 +39,16 @@ const ReviewPage: React.FC = () => {
       setReviews(newReviews);
       setComment('');
       setRating(5);
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'review_submitted', {
+      if (typeof window !== 'undefined' && 'gtag' in window) {
+        const gtag = (window as { gtag: (...args: unknown[]) => void }).gtag;
+        gtag('event', 'review_submitted', {
           rating,
           comment_length: comment.length
         });
       }
-    } catch (e: any) {
-      setError(e.message || '投稿に失敗しました');
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : '投稿に失敗しました';
+      setError(errorMessage);
     } finally {
       setSubmitting(false);
     }

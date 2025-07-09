@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Loader2, User, Bot } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { generateTravelPlan } from '../utils/openai';
+import { openai } from '../utils/openai';
 import Tesseract from 'tesseract.js';
 
 interface Message {
@@ -38,14 +38,14 @@ const AIChat: React.FC<AIChatProps> = ({ onPlanUpdate, initialMessages = [] }) =
     setInput('');
     setLoading(true);
     try {
-      const history = [...messages, { role: 'user', content: text }].map(m => ({ role: m.role, content: m.content }));
-      const res = await generateTravelPlan(history);
+      const history = [...messages, { role: 'user', content: text }].map(m => `${m.role}: ${m.content}`).join('\n');
+      const res = await openai(history);
       const aiMsg = res.choices?.[0]?.message?.content || t('aichat.default_reply');
       setMessages(msgs => [...msgs, { role: 'assistant', content: aiMsg }]);
       if (onPlanUpdate && aiMsg.includes('プラン')) {
         onPlanUpdate(aiMsg);
       }
-    } catch (e: any) {
+    } catch {
       setMessages(msgs => [...msgs, { role: 'assistant', content: t('aichat.error') }]);
     } finally {
       setLoading(false);
@@ -88,7 +88,7 @@ const AIChat: React.FC<AIChatProps> = ({ onPlanUpdate, initialMessages = [] }) =
         console.error('Google Translate API error:', translateError);
         setMessages(msgs => [...msgs, { role: 'assistant', content: t('aichat.translated') + '\n' + text }]);
       }
-    } catch (e) {
+    } catch {
       setMessages(msgs => [...msgs, { role: 'assistant', content: t('aichat.ocr_error') }]);
     } finally {
       setOcrLoading(false);

@@ -10,13 +10,6 @@ interface FAQItem {
   category: string;
 }
 
-const dummyFaqs: FAQItem[] = [
-  { id: '1', question: 'How do I activate my eSIM?', answer: 'Scan the QR code on the eSIM page with your device.', category: 'eSIM' },
-  { id: '2', question: 'Can I use DataPocket in Japan?', answer: 'Yes, DataPocket is optimized for travelers in Japan.', category: 'Service' },
-  { id: '3', question: 'What payment methods are supported?', answer: 'We support credit cards via Stripe.', category: 'Payment' },
-  { id: '4', question: 'Is support available in multiple languages?', answer: 'Yes, we support English, Japanese, and more.', category: 'Support' },
-];
-
 const FAQPage: React.FC = () => {
   const { t } = useLanguage();
   const [faqs, setFaqs] = useState<FAQItem[]>([]);

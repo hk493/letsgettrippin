@@ -21,14 +21,16 @@ const QRCodeScreen: React.FC = () => {
         // 本番API呼び出し
         const res = await issueEsim({ planId: plan.id });
         setQrData(res.qrCodeData);
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'esim_issued', {
+        if (typeof window !== 'undefined' && 'gtag' in window) {
+          const gtag = (window as { gtag: (...args: unknown[]) => void }).gtag;
+          gtag('event', 'esim_issued', {
             plan_name: plan.name,
             plan_id: plan.id
           });
         }
-      } catch (e: any) {
-        setError(e.message || 'eSIM発行に失敗しました');
+      } catch (e: unknown) {
+        const errorMessage = e instanceof Error ? e.message : 'eSIM発行に失敗しました';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

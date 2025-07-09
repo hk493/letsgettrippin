@@ -39,7 +39,7 @@ export const debugEnvironmentVariables = () => {
 };
 
 // エラーログ用
-export const logError = (error: any, context?: string) => {
+export const logError = (error: unknown, context?: string) => {
   console.error(`🚨 Error${context ? ` in ${context}` : ''}:`, error);
   
   if (error instanceof Error) {
