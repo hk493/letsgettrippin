@@ -1,109 +1,110 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { MapPin, Calendar, Star, Edit3, Share2, Trash2, Map, Plus } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
+import { MapPinIcon, CalendarIcon, UsersIcon, ArrowLeftIcon, ArrowRightIcon, StarIcon, GlobeIcon } from 'lucide-react';
+
+const mockTrip = {
+  title: "Tokyo Adventure",
+  duration: "2024/07/01 - 2024/07/07",
+  travelers: 2,
+  progress: 75,
+  spots: [
+    { name: "Shibuya Crossing", description: "World's busiest pedestrian crossing.", rating: 5 },
+    { name: "Asakusa Senso-ji", description: "Historic temple and shopping street.", rating: 4 },
+    { name: "Harajuku Takeshita St.", description: "Trendy fashion and sweets.", rating: 4 },
+    { name: "Tokyo Skytree", description: "Tallest structure in Japan.", rating: 5 },
+  ],
+  notes: "Don't forget to try local street food!",
+};
 
 const TripDetails: React.FC = () => {
-  const { id } = useParams();
-  const { t } = useLanguage();
-
-  // ダミー詳細タイムライン（本来はAPIから取得）
-  const days = [
-    { day: 1, date: '2025-08-01', title: t('tripdetails.day1'), activities: [
-      { time: '10:00', title: t('tripdetails.arrival'), place: 'Tokyo Haneda', type: 'arrival' },
-      { time: '12:00', title: t('tripdetails.lunch'), place: 'Sushi Zanmai', type: 'food' },
-      { time: '14:00', title: t('tripdetails.sightseeing'), place: 'Asakusa', type: 'sight' }
-    ] },
-    { day: 2, date: '2025-08-02', title: t('tripdetails.day2'), activities: [
-      { time: '09:00', title: t('tripdetails.breakfast'), place: 'Hotel', type: 'food' },
-      { time: '11:00', title: t('tripdetails.sightseeing'), place: 'Shibuya', type: 'sight' },
-      { time: '18:00', title: t('tripdetails.dinner'), place: 'Izakaya', type: 'food' }
-    ] }
-  ];
-
-  // ダミーレビュー
-  const reviews = [
-    { user: 'Sarah', text: t('tripdetails.review1'), rating: 5 },
-    { user: 'Marco', text: t('tripdetails.review2'), rating: 4 }
-  ];
+  const navigate = useNavigate();
 
   return (
-    <div className="container mx-auto py-10">
-      <div className="flex items-center gap-4 mb-6">
-        <h1 className="text-3xl font-bold">{t('tripdetails.title')}</h1>
-        <button className="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-full flex items-center gap-2 hover:bg-yellow-200">
-          <Edit3 className="w-5 h-5" /> {t('tripdetails.edit')}
-        </button>
-        <button className="px-4 py-2 bg-red-100 text-red-700 rounded-full flex items-center gap-2 hover:bg-red-200">
-          <Trash2 className="w-5 h-5" /> {t('tripdetails.delete')}
-        </button>
-        <button className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full flex items-center gap-2 hover:bg-blue-200">
-          <Plus className="w-5 h-5" /> {t('tripdetails.suggest')}
-        </button>
-      </div>
-      {/* 日別タイムライン */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">{t('tripdetails.timeline')}</h2>
-        <div className="space-y-6">
-          {days.map(day => (
-            <div key={day.day} className="bg-white rounded-xl shadow p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Calendar className="w-5 h-5 text-blue-500" />
-                <span className="font-bold">{day.date}</span>
-                <span className="ml-2">{day.title}</span>
-              </div>
-              <ul className="space-y-2">
-                {day.activities.map((a, i) => (
-                  <li key={i} className="flex items-center gap-3">
-                    <span className="text-gray-500 w-16">{a.time}</span>
-                    <span className="font-semibold">{a.title}</span>
-                    <span className="text-gray-600 flex items-center gap-1"><MapPin className="w-4 h-4" />{a.place}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div className="max-w-3xl mx-auto px-4 py-10">
+        {/* ヘッダー */}
+        <div className="flex items-center mb-8">
+          <button onClick={() => navigate(-1)} className="mr-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+            <ArrowLeftIcon className="w-5 h-5 text-gray-600" />
+          </button>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            {mockTrip.title}
+          </h1>
         </div>
-      </section>
-      {/* GoogleMap埋め込み（ダミー） */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">{t('tripdetails.map')}</h2>
-        <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
-          <Map className="w-8 h-8 text-blue-500 mb-2" />
-          <div className="w-full h-64 bg-gray-100 flex items-center justify-center rounded-xl">
-            <span className="text-gray-400">GoogleMap（ここに地図を埋め込み）</span>
+
+        {/* 旅行概要カード */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <div className="flex flex-wrap gap-6 mb-4">
+            <div className="flex items-center gap-2">
+              <CalendarIcon className="w-5 h-5 text-blue-500" />
+              <span className="font-medium text-gray-700">{mockTrip.duration}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <UsersIcon className="w-5 h-5 text-purple-500" />
+              <span className="font-medium text-gray-700">{mockTrip.travelers} travelers</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <GlobeIcon className="w-5 h-5 text-green-500" />
+              <span className="font-medium text-gray-700">Japan</span>
+            </div>
+          </div>
+          {/* 進捗バー */}
+          <div className="mb-2">
+            <div className="flex justify-between text-xs text-gray-500 mb-1">
+              <span>Trip Progress</span>
+              <span>{mockTrip.progress}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300" style={{ width: `${mockTrip.progress}%` }}></div>
+            </div>
           </div>
         </div>
-      </section>
-      {/* レビュー */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">{t('tripdetails.reviews')}</h2>
-        <div className="bg-white rounded-xl shadow p-4">
-          <ul className="space-y-2">
-            {reviews.map((r, i) => (
-              <li key={i} className="flex items-center gap-2">
-                <Star className="w-4 h-4 text-yellow-400" />
-                <span className="font-bold">{r.user}</span>
-                <span className="text-gray-700">{r.text}</span>
-                <span className="text-yellow-500">{'★'.repeat(r.rating)}</span>
-              </li>
+
+        {/* スポットリスト */}
+        <div className="mb-8">
+          <h2 className="text-xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Must-Visit Spots</h2>
+          <div className="space-y-4">
+            {mockTrip.spots.map((spot, idx) => (
+              <div key={idx} className="bg-white rounded-xl shadow p-4 flex items-center gap-4 hover:shadow-lg transition">
+                <MapPinIcon className="w-8 h-8 text-blue-400 flex-shrink-0" />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-gray-800 text-lg">{spot.name}</span>
+                    <span className="flex items-center">
+                      {[...Array(spot.rating)].map((_, i) => (
+                        <StarIcon key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                      ))}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 text-sm">{spot.description}</p>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
-      </section>
-      {/* シェア・体験投稿 */}
-      <section className="mb-8 flex gap-4">
-        <Link to="/reviews" className="px-6 py-3 bg-blue-500 text-white rounded-full font-bold flex items-center gap-2 hover:bg-blue-600">
-          <Star className="w-5 h-5" /> {t('tripdetails.post_review')}
-        </Link>
-        <button className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-bold flex items-center gap-2 hover:from-purple-500 hover:to-pink-500">
-          <Share2 className="w-5 h-5" /> {t('tripdetails.share')}
-        </button>
-      </section>
-      {/* 戻る・eSIM購入導線 */}
-      <div className="flex gap-4 mt-8">
-        <Link to="/dashboard" className="px-6 py-3 bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">{t('common.back')}</Link>
-        <Link to="/esim" className="px-6 py-3 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-600">{t('tripdetails.buy_esim')}</Link>
+
+        {/* メモ・アクション */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <h3 className="font-bold text-gray-800 mb-2">Notes</h3>
+          <p className="text-gray-600 mb-4">{mockTrip.notes}</p>
+          <div className="flex gap-4">
+            <button onClick={() => navigate('/planning')} className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-purple-600 transition-all duration-300 flex items-center">
+              <ArrowRightIcon className="w-5 h-5 mr-2" />
+              Plan Next Trip
+            </button>
+            <button onClick={() => navigate('/dashboard')} className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-300 flex items-center">
+              <ArrowLeftIcon className="w-5 h-5 mr-2" />
+              Back to Dashboard
+            </button>
+          </div>
+        </div>
+
+        {/* 地図連携（ダミー） */}
+        <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl shadow-inner p-6 flex flex-col items-center">
+          <div className="w-full h-64 bg-gray-200 rounded-xl flex items-center justify-center text-gray-400 text-lg">
+            [Google Maps Integration Coming Soon]
+          </div>
+        </div>
       </div>
     </div>
   );
