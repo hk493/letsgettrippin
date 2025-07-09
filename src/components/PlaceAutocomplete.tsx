@@ -27,14 +27,15 @@ const PlaceAutocomplete: React.FC<PlaceAutocompleteProps> = ({
 
     setIsLoading(true);
     try {
-      const res = await fetch(
-        `/.netlify/functions/places?input=${encodeURIComponent(value)}&language=${language}`
-      );
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+      const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(value)}&key=${apiKey}&language=${language}`;
+      
+      const res = await fetch(url);
       const data = await res.json();
       if (data.status === "OK") {
         setSuggestions(data.predictions);
       } else {
-        console.warn('Google Maps API error:', data.status);
+        console.warn('Google Maps API error:', data.status, data.error_message);
         setSuggestions([]);
       }
     } catch (e) {
