@@ -4,6 +4,10 @@
   "version": "0.0.0",
   "description": "Let's Get Trippin' - Your ultimate Japan travel companion with eSIM, AI translation, and local guides",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
