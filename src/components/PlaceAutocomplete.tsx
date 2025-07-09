@@ -19,17 +19,8 @@ const PlaceAutocomplete: React.FC<PlaceAutocompleteProps> = ({
   const [showSuggestions, setShowSuggestions] = useState(false);
   const timeoutRef = useRef<number | null>(null);
 
-  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-
   const fetchSuggestions = async (value: string) => {
     if (!value) {
-      setSuggestions([]);
-      return;
-    }
-
-    // APIキーが設定されていない場合の処理
-    if (!apiKey || apiKey === 'your_google_maps_api_key_here') {
-      console.warn('Google Maps API key is not configured');
       setSuggestions([]);
       return;
     }
@@ -37,9 +28,7 @@ const PlaceAutocomplete: React.FC<PlaceAutocompleteProps> = ({
     setIsLoading(true);
     try {
       const res = await fetch(
-        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
-          value
-        )}&key=${apiKey}&language=${language}`
+        `/.netlify/functions/places?input=${encodeURIComponent(value)}&language=${language}`
       );
       const data = await res.json();
       if (data.status === "OK") {
