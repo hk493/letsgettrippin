@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useInteractionTracking, useTimeTracking } from '../hooks/useAnalytics';
 import { ArrowRightIcon, GlobeIcon, ZapIcon, ShieldCheckIcon, MapPinIcon, CameraIcon, GiftIcon, StarIcon, PlayIcon, CheckIcon, WifiIcon, SmartphoneIcon, HeartIcon, TrendingUpIcon } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
@@ -8,10 +9,28 @@ const LandingPage: React.FC = () => {
   const { t } = useLanguage();
   const [activeFeature, setActiveFeature] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  
+  // Analytics hooks
+  const { trackClick, trackFeatureUse } = useInteractionTracking();
+  useTimeTracking('landing_page');
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  const handleStartJourney = () => {
+    trackClick('start_journey_button', 'landing_page');
+    navigate('/planning');
+  };
+
+  const handleWatchDemo = () => {
+    trackClick('watch_demo_button', 'landing_page');
+    // Demo video functionality would go here
+  };
+
+  const handleFeatureClick = (featureName: string) => {
+    trackFeatureUse(featureName);
+  };
 
   const features = [
     {
@@ -151,14 +170,17 @@ const LandingPage: React.FC = () => {
             {/* CTA Buttons */}
             <div className={`flex flex-col sm:flex-row gap-4 justify-center mb-12 transform transition-all duration-1000 delay-800 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <button
-                onClick={() => navigate('/planning')}
+                onClick={handleStartJourney}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center group shadow-xl hover:shadow-2xl transform hover:scale-105"
               >
                 Start Your Journey
                 <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </button>
               
-              <button className="bg-white/80 backdrop-blur-sm text-gray-800 border-2 border-gray-200 px-8 py-4 rounded-full font-semibold hover:bg-white transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
+              <button 
+                onClick={handleWatchDemo}
+                className="bg-white/80 backdrop-blur-sm text-gray-800 border-2 border-gray-200 px-8 py-4 rounded-full font-semibold hover:bg-white transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl"
+              >
                 <PlayIcon className="w-5 h-5 mr-2" />
                 Watch Demo
               </button>
@@ -202,7 +224,7 @@ const LandingPage: React.FC = () => {
               <div
                 key={index}
                 className={`bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-gray-100`}
-                onMouseEnter={() => setActiveFeature(index)}
+                onMouseEnter={() => handleFeatureClick(feature.title)}
               >
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4 mx-auto`}>
                   <div className="text-white">
@@ -296,7 +318,7 @@ const LandingPage: React.FC = () => {
                 </ul>
 
                 <button
-                  onClick={() => navigate('/planning')}
+                  onClick={() => handleStartJourney()}
                   className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${
                     plan.popular
                       ? 'bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white'
