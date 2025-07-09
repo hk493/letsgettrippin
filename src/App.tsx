@@ -27,17 +27,15 @@ function App() {
   return (
     <AuthProvider>
       <LanguageProvider>
-        <Router>
-          <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-            <Header />
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/plan" element={<PlanningFlow />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/trip/:id" element={<TripDetails />} />
-            </Routes>
-          </div>
-        </Router>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+          <Header />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/plan" element={<PlanningFlow />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/trip/:id" element={<TripDetails />} />
+          </Routes>
+        </div>
       </LanguageProvider>
     </AuthProvider>
   );

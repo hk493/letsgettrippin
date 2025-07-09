@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import ErrorBoundary from './components/ErrorBoundary.tsx';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 
 // エラーハンドリングを一時的に無効化（無限ループ問題のため）
 // const originalConsoleError = console.error;
@@ -25,8 +26,11 @@ if (import.meta.env.DEV) {
 }
 
 function gtag(...args: unknown[]) {
-  if (typeof window !== 'undefined' && 'dataLayer' in window) {
-    (window as { dataLayer: unknown[] }).dataLayer.push(args);
+  if (
+    typeof window !== 'undefined' &&
+    typeof (window as unknown as { dataLayer?: unknown[] }).dataLayer !== 'undefined'
+  ) {
+    (window as unknown as { dataLayer: unknown[] }).dataLayer.push(args);
   }
 }
 
@@ -37,7 +41,9 @@ if (import.meta.env.VITE_GA_ID) {
   script.src = `https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GA_ID}`;
   document.head.appendChild(script);
   if (typeof window !== 'undefined') {
-    (window as { dataLayer: unknown[] }).dataLayer = (window as { dataLayer: unknown[] }).dataLayer || [];
+    if (typeof (window as unknown as { dataLayer?: unknown[] }).dataLayer === 'undefined') {
+      (window as unknown as { dataLayer: unknown[] }).dataLayer = [];
+    }
   }
   gtag('js', new Date());
   gtag('config', import.meta.env.VITE_GA_ID);
@@ -46,7 +52,9 @@ if (import.meta.env.VITE_GA_ID) {
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ErrorBoundary>
   </React.StrictMode>
 );
