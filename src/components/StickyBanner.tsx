@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useLanguage } from '../contexts/LanguageContext'
-import { useAuth } from '../contexts/AuthContext'
+import { useLanguage } from '../context/LanguageContext'
+import { useAuth } from '../context/AuthContext'
 import { 
   SmartphoneIcon, 
   UserIcon, 
@@ -12,9 +12,9 @@ import {
 } from 'lucide-react'
 import { UserDashboard } from './UserDashboard'
 
-export const StickyBanner = ({ onDevicesClick, onHomeClick }: { onDevicesClick: any, onHomeClick: any }) => {
-  const { t, currentLanguage, changeLanguage, languages } = useLanguage() as any
-  const { isAuthenticated, user, login } = useAuth() as any
+export const StickyBanner = ({ onDevicesClick, onHomeClick }) => {
+  const { t, currentLanguage, changeLanguage, languages } = useLanguage()
+  const { isAuthenticated, user, login } = useAuth()
   const [showDashboard, setShowDashboard] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -38,7 +38,7 @@ export const StickyBanner = ({ onDevicesClick, onHomeClick }: { onDevicesClick: 
     setShowMobileMenu(false)
   }
 
-  const handleLanguageChange = (langCode: string) => {
+  const handleLanguageChange = (langCode) => {
     changeLanguage(langCode)
     setShowMobileMenu(false)
   }
@@ -55,7 +55,7 @@ export const StickyBanner = ({ onDevicesClick, onHomeClick }: { onDevicesClick: 
 
   // Close mobile menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
+    const handleClickOutside = (event) => {
       if (showMobileMenu && !event.target.closest('.mobile-menu-container')) {
         setShowMobileMenu(false)
       }
@@ -82,7 +82,7 @@ export const StickyBanner = ({ onDevicesClick, onHomeClick }: { onDevicesClick: 
                   src="/datapocket-logo-latest.png"
                   alt="Datapocket Logo"
                   className="h-14 md:h-16 lg:h-18 w-auto object-contain cursor-pointer hover:scale-105 transition-transform"
-                  onError={(e: any) => {
+                  onError={(e) => {
                     console.log('Primary logo failed, trying fallback...')
                     e.target.src = "/datapocket-logo.png"
                   }}
@@ -111,7 +111,7 @@ export const StickyBanner = ({ onDevicesClick, onHomeClick }: { onDevicesClick: 
                 src="/datapocket-logo-latest.png" 
                 alt="Datapocket Mascot" 
                 className="w-8 h-8 mr-2 mascot-bounce object-contain"
-                onError={(e: any) => {
+                onError={(e) => {
                   console.log('Primary mascot image failed, trying fallback...')
                   e.target.src = "/datapocket-logo.png"
                   e.target.onerror = () => {
@@ -137,7 +137,7 @@ export const StickyBanner = ({ onDevicesClick, onHomeClick }: { onDevicesClick: 
                   onChange={(e) => changeLanguage(e.target.value)}
                   className="bg-white/90 border border-pink-200 rounded-full px-3 py-1.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent"
                 >
-                  {languages.map((lang: any) => (
+                  {languages.map((lang) => (
                     <option key={lang.code} value={lang.code}>
                       {lang.flag} {lang.name}
                     </option>
@@ -219,7 +219,7 @@ export const StickyBanner = ({ onDevicesClick, onHomeClick }: { onDevicesClick: 
                     <span className="font-medium text-gray-700">言語選択 / Language</span>
                   </div>
                   <div className="grid grid-cols-2 gap-2 ml-8">
-                    {languages.map((lang: any) => (
+                    {languages.map((lang) => (
                       <button
                         key={lang.code}
                         onClick={() => handleLanguageChange(lang.code)}
@@ -288,7 +288,7 @@ export const StickyBanner = ({ onDevicesClick, onHomeClick }: { onDevicesClick: 
                       src="/datapocket-logo-latest.png" 
                       alt="Datapocket Mascot" 
                       className="w-8 h-8 mr-2 mascot-bounce object-contain"
-                      onError={(e: any) => {
+                      onError={(e) => {
                         console.log('Primary mascot image failed, trying fallback...')
                         e.target.src = "/datapocket-logo.png"
                         e.target.onerror = () => {
