@@ -63,17 +63,31 @@ const AIChat: React.FC<AIChatProps> = ({ onPlanUpdate, initialMessages = [] }) =
       const { data } = await Tesseract.recognize(file, 'eng+jpn');
       const text = data.text.trim();
       setMessages(msgs => [...msgs, { role: 'user', content: t('aichat.ocr_result') + '\n' + text }]);
+      
       // 翻訳API呼び出し（雛形）
-      const translated = await fetch('https://translation.googleapis.com/language/translate/v2', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          q: text,
-          target: 'ja', // 例:日本語に翻訳
-          key: import.meta.env.VITE_GOOGLE_TRANSLATE_API_KEY
-        })
-      }).then(res => res.json()).then(res => res.data?.translations?.[0]?.translatedText || '');
-      setMessages(msgs => [...msgs, { role: 'assistant', content: t('aichat.translated') + '\n' + translated }]);
+      const translateApiKey = import.meta.env.VITE_GOOGLE_TRANSLATE_API_KEY;
+      
+      if (!translateApiKey || translateApiKey === 'your_google_translate_api_key_here') {
+        console.warn('Google Translate API key is not configured');
+        setMessages(msgs => [...msgs, { role: 'assistant', content: t('aichat.translated') + '\n' + text }]);
+        return;
+      }
+      
+      try {
+        const translated = await fetch('https://translation.googleapis.com/language/translate/v2', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            q: text,
+            target: 'ja', // 例:日本語に翻訳
+            key: translateApiKey
+          })
+        }).then(res => res.json()).then(res => res.data?.translations?.[0]?.translatedText || '');
+        setMessages(msgs => [...msgs, { role: 'assistant', content: t('aichat.translated') + '\n' + translated }]);
+      } catch (translateError) {
+        console.error('Google Translate API error:', translateError);
+        setMessages(msgs => [...msgs, { role: 'assistant', content: t('aichat.translated') + '\n' + text }]);
+      }
     } catch (e) {
       setMessages(msgs => [...msgs, { role: 'assistant', content: t('aichat.ocr_error') }]);
     } finally {

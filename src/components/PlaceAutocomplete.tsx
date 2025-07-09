@@ -26,6 +26,14 @@ const PlaceAutocomplete: React.FC<PlaceAutocompleteProps> = ({
       setSuggestions([]);
       return;
     }
+
+    // APIキーが設定されていない場合の処理
+    if (!apiKey || apiKey === 'your_google_maps_api_key_here') {
+      console.warn('Google Maps API key is not configured');
+      setSuggestions([]);
+      return;
+    }
+
     setIsLoading(true);
     try {
       const res = await fetch(
@@ -37,9 +45,11 @@ const PlaceAutocomplete: React.FC<PlaceAutocompleteProps> = ({
       if (data.status === "OK") {
         setSuggestions(data.predictions);
       } else {
+        console.warn('Google Maps API error:', data.status);
         setSuggestions([]);
       }
     } catch (e) {
+      console.error('Google Maps API error:', e);
       setSuggestions([]);
     } finally {
       setIsLoading(false);
