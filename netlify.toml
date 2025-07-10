@@ -1,81 +1,20 @@
 [build]
   publish = "dist"
-  command = "npm ci --prefer-offline --no-audit && npm run build"
+  command = "npm run build"
 
-[build.environment]
-  NODE_VERSION = "18.17.0"
-  NPM_VERSION = "9"
-  NPM_FLAGS = "--prefer-offline --no-audit"
-  NODE_OPTIONS = "--max-old-space-size=4096"
-
-# SPA用のリダイレクト設定
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# 404ページの設定
-[[redirects]]
-  from = "/404"
-  to = "/index.html"
-  status = 200
+[build.environment]
+  NODE_VERSION = "22"
 
-# 静的ファイルのキャッシュ設定
+# Custom domain configuration for esimport.jp
 [[headers]]
-  for = "/assets/*"
+  for = "/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# 画像ファイルのキャッシュ設定
-[[headers]]
-  for = "/*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.jpg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.jpeg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.gif"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.svg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# ビルド処理設定
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
-[build.processing.images]
-  compress = true 
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

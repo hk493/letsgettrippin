@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* HTMLとbodyの高さを100%に設定 */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* #rootの高さを100%に設定 */
+#root {
+  height: 100%;
+  min-height: 100vh;
+}
+
+/* アプリケーション全体の高さを確保 */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

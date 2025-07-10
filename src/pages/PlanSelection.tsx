@@ -1,63 +1,147 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CheckCircle, Star, Sparkles } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import React from 'react'
+import { Logo } from '../components/Logo'
+import { PlanCard } from '../components/PlanCard'
+import { Button } from '../components/Button'
+import { useLanguage } from '../context/LanguageContext'
+import { CredibilitySection } from '../components/CredibilitySection'
+import { StickyBanner } from '../components/StickyBanner'
+import { Footer } from '../components/Footer'
+import { NavigationMenu } from '../components/NavigationMenu'
+import { ArrowLeftIcon, GlobeIcon } from 'lucide-react'
 
-interface EsimPlan {
-  id: string;
-  name: string;
-  price: number;
-  duration: string;
-  recommended?: boolean;
-  benefit?: string;
-}
+export const PlanSelection = ({ onSelectPlan, navigateTo }) => {
+  const { t, currentLanguage, changeLanguage, languages } = useLanguage()
 
-const PlanSelection: React.FC = () => {
-  const { t } = useLanguage();
-  const navigate = useNavigate();
-  const [plans, setPlans] = useState<EsimPlan[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  // ダミーAPI呼び出し（本来はesimApi.tsで取得）
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setPlans([
-        { id: '1', name: t('planselection.plan1'), price: 1000, duration: '7日', recommended: true, benefit: t('planselection.benefit1') },
-        { id: '2', name: t('planselection.plan2'), price: 2500, duration: '15日', benefit: t('planselection.benefit2') },
-        { id: '3', name: t('planselection.plan3'), price: 3500, duration: '30日' }
-      ]);
-      setLoading(false);
-    }, 800);
-  }, [t]);
-
-  const handleSelect = (plan: EsimPlan) => {
-    // 決済ページへ遷移（plan情報を渡す）
-    navigate('/payment', { state: { plan } });
+  const handleNavigate = (path: string) => {
+    window.location.href = path;
   };
 
-  if (loading) return <div className="flex justify-center items-center h-64"><Sparkles className="w-8 h-8 animate-spin text-blue-500" /> {t('common.loading')}</div>;
+  // Handle devices navigation
+  const handleDevicesClick = () => {
+    navigateTo('devices')
+  }
+
+  // Handle home navigation
+  const handleHomeClick = () => {
+    navigateTo('language')
+  }
+
+  // Sample data plans with translations including test plan
+  const plans = [
+    {
+      id: 0,
+      name: t('planTest'),
+      duration: `1 ${t('daysUnit')}`,
+      data: `100 MB`,
+      price: 0,
+      features: [
+        t('featureHighSpeed'),
+        t('featureJapanCoverage'),
+        t('featureEasyActivation'),
+      ],
+    },
+    {
+      id: 1,
+      name: t('planBasic'),
+      duration: `3 ${t('daysUnit')}`,
+      data: `1 ${t('gbUnit')}`,
+      price: 900,
+      features: [
+        t('featureHighSpeed'),
+        t('featureJapanCoverage'),
+        t('featureEasyActivation'),
+      ],
+    },
+    {
+      id: 2,
+      name: t('planStandard'),
+      duration: `7 ${t('daysUnit')}`,
+      data: `3 ${t('gbUnit')}`,
+      price: 1900,
+      features: [
+        t('featureHighSpeed'),
+        t('featureJapanCoverage'),
+        t('featureEasyActivation'),
+        t('featureHotspot'),
+      ],
+    },
+    {
+      id: 3,
+      name: t('planPremium'),
+      duration: `30 ${t('daysUnit')}`,
+      data: `10 ${t('gbUnit')}`,
+      price: 3900,
+      features: [
+        t('featureHighSpeed'),
+        t('featureJapanCoverage'),
+        t('featureEasyActivation'),
+        t('featureHotspot'),
+        t('featurePrioritySupport'),
+      ],
+    },
+  ]
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">{t('planselection.title')}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {plans.map(plan => (
-          <div key={plan.id} className={`relative bg-white rounded-xl shadow p-6 flex flex-col items-center border-2 transition-transform hover:scale-105 ${plan.recommended ? 'border-pink-400 animate-pulse-glow' : 'border-gray-100'}`}>
-            {plan.recommended && (
-              <div className="absolute top-2 right-2 bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1"><Star className="w-4 h-4" />{t('planselection.recommended')}</div>
-            )}
-            <h2 className="text-xl font-semibold mb-2">{plan.name}</h2>
-            <p className="mb-2">{plan.duration}</p>
-            <p className="mb-4 font-bold text-2xl">¥{plan.price.toLocaleString()}</p>
-            {plan.benefit && <div className="mb-2 flex items-center gap-1 text-green-600"><CheckCircle className="w-5 h-5" />{plan.benefit}</div>}
-            <button className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-bold hover:from-purple-500 hover:to-pink-500 transition-all mt-2" onClick={() => handleSelect(plan)}>{t('planselection.select')}</button>
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 text-center text-gray-500">{t('planselection.note')}</div>
-    </div>
-  );
-};
+    <div className="min-h-screen japan-bg-torii">
+      <NavigationMenu onNavigate={handleNavigate} />
+      <div className="min-h-screen japan-bg-overlay">
+        {/* Sticky Banner */}
+        <StickyBanner 
+          onDevicesClick={handleDevicesClick}
+          onHomeClick={handleHomeClick}
+        />
 
-export default PlanSelection; 
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-10 text-6xl opacity-20 floating-animation">🌸</div>
+        <div className="absolute top-40 right-20 text-4xl opacity-30 floating-animation" style={{ animationDelay: '2s' }}>⛩️</div>
+        <div className="absolute bottom-40 left-20 text-5xl opacity-25 floating-animation" style={{ animationDelay: '4s' }}>🗾</div>
+
+        <main className="container mx-auto p-6 relative z-10">
+          {/* Hero Section */}
+          <div className="text-center mb-12 pt-8">
+            <div className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 mb-6 shadow-lg">
+              {/* Fixed mascot image path */}
+              <img 
+                src="/ChatGPT_Image_2025年6月28日_14_25_54-removebg-preview.png" 
+                alt="Esimport Mascot" 
+                className="w-12 h-12 mr-3 mascot-bounce object-contain"
+                onError={(e) => {
+                  console.log('Primary mascot image failed, trying fallback...')
+                  e.target.src = "/ChatGPT_Image_2025年6月28日_14_25_54-removebg-preview copy.png"
+                  e.target.onerror = () => {
+                    console.log('All mascot images failed, using emoji fallback')
+                    e.target.style.display = 'none'
+                    const fallback = document.createElement('div')
+                    fallback.className = 'text-3xl mr-3 mascot-bounce'
+                    fallback.textContent = '🦊'
+                    e.target.parentNode.insertBefore(fallback, e.target.nextSibling)
+                  }
+                }}
+              />
+              <span className="font-medium text-gray-700">{t('kitsuneMessage')}</span>
+            </div>
+            
+            <h1 className="hero-title bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
+              {t('selectEsimPlan')}
+            </h1>
+            
+            <p className="hero-subtitle text-gray-600 max-w-2xl mx-auto">
+              {t('stayConnected')}
+            </p>
+          </div>
+
+          {/* Plans Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 max-w-7xl mx-auto">
+            {plans.map((plan) => (
+              <PlanCard key={plan.id} plan={plan} onSelect={onSelectPlan} />
+            ))}
+          </div>
+
+          <CredibilitySection />
+        </main>
+
+        <Footer />
+      </div>
+    </div>
+  )
+}
