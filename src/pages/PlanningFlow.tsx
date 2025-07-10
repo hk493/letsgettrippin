@@ -349,22 +349,31 @@ export const PlanningFlow = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
-        {planningState.isLoading ? (
-          <div className="flex flex-col items-center justify-center">
-            <LoadingSpinner />
-            <p className="mt-4">{t('プランを生成中...')}</p>
-          </div>
-        ) : (
-          <>
-            {planningState.error && (
-              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                {planningState.error}
-              </div>
-            )}
-            {renderStep()}
-          </>
-        )}
+      <div className="relative min-h-screen">
+        {/* 背景画像 */}
+        <img
+          src="/beach-japan.jpg"
+          alt="日本のビーチ"
+          className="absolute inset-0 w-full h-full object-cover opacity-50 pointer-events-none z-0"
+        />
+        {/* コンテンツ */}
+        <div className="container mx-auto px-4 py-8 relative z-10">
+          {planningState.isLoading ? (
+            <div className="flex flex-col items-center justify-center">
+              <LoadingSpinner />
+              <p className="mt-4">{t('プランを生成中...')}</p>
+            </div>
+          ) : (
+            <>
+              {planningState.error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                  {planningState.error}
+                </div>
+              )}
+              {renderStep()}
+            </>
+          )}
+        </div>
       </div>
     </Layout>
   );
