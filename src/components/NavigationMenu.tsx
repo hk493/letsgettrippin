@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { MenuIcon, XIcon, HomeIcon, WifiIcon, MapIcon, PlaneIcon, UsersIcon, HelpCircleIcon, MailIcon, FileTextIcon, BuildingIcon, ShieldIcon, BriefcaseIcon, HandshakeIcon, SmartphoneIcon } from 'lucide-react';
+import { MenuIcon, XIcon, HomeIcon, WifiIcon, MapIcon, PlaneIcon, UsersIcon, HelpCircleIcon, MailIcon, FileTextIcon, BuildingIcon, ShieldIcon, BriefcaseIcon, HandshakeIcon, SmartphoneIcon, RocketIcon, SparklesIcon } from 'lucide-react';
 
 interface NavigationMenuProps {
   onNavigate: (path: string) => void;
 }
 
-export const NavigationMenu = ({ onNavigate }: NavigationMenuProps) => {
+export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
@@ -13,7 +13,7 @@ export const NavigationMenu = ({ onNavigate }: NavigationMenuProps) => {
       title: 'ホーム',
       path: '/',
       icon: <HomeIcon className="w-5 h-5" />,
-      description: 'DataPocketのメインページ'
+      description: 'Trippinのメインページ'
     },
     {
       title: 'AI旅行プランナー',
@@ -55,7 +55,7 @@ export const NavigationMenu = ({ onNavigate }: NavigationMenuProps) => {
       title: '利用規約',
       path: '/terms',
       icon: <FileTextIcon className="w-5 h-5" />,
-      description: 'DataPocket利用規約'
+      description: 'Trippin利用規約'
     },
     {
       title: '会社概要',
@@ -88,6 +88,16 @@ export const NavigationMenu = ({ onNavigate }: NavigationMenuProps) => {
     setIsOpen(false);
   };
 
+  const handleDemoAccess = () => {
+    window.location.href = '/?demo=true';
+    setIsOpen(false);
+  };
+
+  const handleTravelPlannerAccess = () => {
+    window.location.href = '/?planner=true';
+    setIsOpen(false);
+  };
+
   return (
     <>
       {/* Hamburger Menu Button */}
@@ -117,10 +127,10 @@ export const NavigationMenu = ({ onNavigate }: NavigationMenuProps) => {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="p-6">
+        <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-xl font-bold text-gray-900">メニュー</h2>
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <h2 className="text-lg font-bold text-gray-900">メニュー</h2>
             <button
               onClick={() => setIsOpen(false)}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -129,39 +139,68 @@ export const NavigationMenu = ({ onNavigate }: NavigationMenuProps) => {
             </button>
           </div>
 
-          {/* Menu Items */}
-          <div className="space-y-2">
-            {menuItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => handleMenuClick(item.path)}
-                className="w-full p-4 text-left hover:bg-gray-50 rounded-lg transition-colors group"
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="text-blue-600 group-hover:text-blue-700">
-                    {item.icon}
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-medium text-gray-900 group-hover:text-blue-600">
-                      {item.title}
+          {/* Content Area */}
+          <div className="flex-1 overflow-y-auto">
+            <div className="p-4">
+              {/* Special Action Buttons */}
+              <div className="mb-4 space-y-2">
+                <button
+                  onClick={handleDemoAccess}
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-3 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center group shadow-lg hover:shadow-xl transform hover:scale-105 text-sm"
+                >
+                  <RocketIcon className="w-4 h-4 mr-2" />
+                  <span>新体験をプレビュー</span>
+                </button>
+                <p className="text-xs text-gray-500 text-center">次世代Trippinを体験</p>
+                
+                <button
+                  onClick={handleTravelPlannerAccess}
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-3 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center group shadow-lg hover:shadow-xl transform hover:scale-105 text-sm"
+                >
+                  <SparklesIcon className="w-4 h-4 mr-2" />
+                  <span>AI旅行プランナー</span>
+                </button>
+                <p className="text-xs text-gray-500 text-center">AIが完璧な旅程を作成</p>
+              </div>
+
+              {/* Divider */}
+              <div className="border-t border-gray-200 mb-4"></div>
+
+              {/* Menu Items */}
+              <div className="space-y-0">
+                {menuItems.map((item, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleMenuClick(item.path)}
+                    className="w-full p-2 text-left hover:bg-gray-50 rounded-lg transition-colors group"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="text-blue-600 group-hover:text-blue-700">
+                        {item.icon}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 group-hover:text-blue-600 text-sm">
+                          {item.title}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {item.description}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm text-gray-500">
-                      {item.description}
-                    </div>
-                  </div>
-                </div>
-              </button>
-            ))}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Footer */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
+          {/* Footer - Always at bottom */}
+          <div className="p-4 border-t border-gray-200 bg-white mt-auto">
             <div className="text-center">
-              <div className="text-2xl mb-2">🦊</div>
+              <div className="text-xl mb-1">🦊</div>
               <div className="text-sm text-gray-500">
-                DataPocket
+                Trippin
               </div>
-              <div className="text-xs text-gray-400 mt-1">
+              <div className="text-xs text-gray-400">
                 日本旅行をより楽しく
               </div>
             </div>

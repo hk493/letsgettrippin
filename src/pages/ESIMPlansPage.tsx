@@ -173,15 +173,15 @@ const ESIMPlansPage: React.FC = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg mb-8">
             <img 
-              src="/datapocket-logo-latest.png" 
-              alt="DataPocket" 
+              src="/trippin-logo.png" 
+              alt="Trippin" 
               className="w-12 h-12 mr-3"
               onError={(e) => {
-                e.currentTarget.src = "/datapocket-logo.png";
+                e.currentTarget.src = "/trippin-logo.png";
               }}
             />
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              DataPocket
+              Trippin
             </span>
           </div>
           

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { LanguageSelection } from './pages/LanguageSelection'
 import { PlanSelection } from './pages/PlanSelection'
 import { AuthenticationScreen } from './pages/AuthenticationScreen'
 import { PaymentScreen } from './pages/PaymentScreen'
@@ -66,9 +65,7 @@ const AppContent = () => {
   // Handle URL-based routing
   useEffect(() => {
     const path = window.location.pathname
-    if (path === '/language') {
-      setCurrentScreen('language')
-    } else if (path === '/plans') {
+    if (path === '/plans') {
       setCurrentScreen('plans')
     } else if (path === '/auth') {
       setCurrentScreen('auth')
@@ -199,14 +196,6 @@ const AppContent = () => {
   // Render the appropriate screen based on current state
   else {
     switch (currentScreen) {
-      case 'language':
-        componentToRender = (
-          <>
-            <LanguageSelection onContinue={() => navigateTo('landing')} />
-            <Footer />
-          </>
-        )
-        break
       case 'plans':
         componentToRender = (
           <>

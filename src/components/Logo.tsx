@@ -13,14 +13,14 @@ export const Logo = ({ size = 'medium', onClick }) => {
       className="flex items-center space-x-3 transition-transform hover:scale-105"
       aria-label="Go to home"
     >
-      {/* Latest Datapocket Logo */}
+      {/* Latest Trippin Logo */}
       <img
-        src="/datapocket-logo-latest.png"
-        alt="Datapocket Logo"
+        src="/trippin-logo.png"
+        alt="Trippin Logo"
         className={`${sizeClasses[size]} w-auto object-contain`}
         onError={(e) => {
           console.log('Primary logo failed, trying fallback...')
-          e.target.src = "/datapocket-logo.png"
+          e.target.src = "/trippin-logo.png"
           e.target.onerror = () => {
             console.log('All logos failed, hiding element')
             e.target.style.display = 'none'

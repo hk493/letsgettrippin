@@ -38,12 +38,12 @@ export const Footer = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 mb-6 shadow-lg">
               <img 
-                src="/datapocket-logo-latest.png" 
-                alt="Datapocket Mascot" 
+                src="/trippin-logo.png" 
+                alt="Trippin Mascot" 
                 className="w-12 h-12 mr-3 mascot-bounce object-contain"
                 onError={(e) => {
                   console.log('Primary mascot image failed, trying fallback...')
-                  e.target.src = "/datapocket-logo.png"
+                  e.target.src = "/trippin-logo.png"
                   e.target.onerror = () => {
                     console.log('All mascot images failed, using emoji fallback')
                     e.target.style.display = 'none'
@@ -157,7 +157,7 @@ export const Footer = () => {
                 </div>
                 
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  Book hotels, activities, and transportation in Japan at exclusive discounted rates. Special deals for DataPocket users!
+                  Book hotels, activities, and transportation in Japan at exclusive discounted rates. Special deals for Trippin users!
                 </p>
                 
                 {/* Features */}
@@ -211,7 +211,7 @@ export const Footer = () => {
             <div>
               <h3 className="text-lg font-bold mb-4">{t('companyInfo')}</h3>
               <div className="space-y-3 text-sm">
-                <p><strong>{t('serviceName')}:</strong> Datapocket</p>
+                <p><strong>{t('serviceName')}:</strong> Trippin</p>
                 <p><strong>{t('representative')}:</strong> 田島宝人</p>
                 <div className="flex items-center space-x-2">
                   <PhoneIcon size={16} className="text-white flex-shrink-0" />
@@ -220,7 +220,7 @@ export const Footer = () => {
                 <div className="flex items-start space-x-2">
                   <MailIcon size={16} className="text-white flex-shrink-0 mt-0.5" />
                   <div className="flex flex-col">
-                    <span>datapocket.jp@gmail.com</span>
+                    <span>Trippin.jp@gmail.com</span>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -310,7 +310,7 @@ export const Footer = () => {
           </div>
 
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 Datapocket. {t('allRightsReserved')}</p>
+            <p>&copy; 2024 Trippin. {t('allRightsReserved')}</p>
             <p className="mt-2">
               {t('paymentActNotice')}
             </p>
@@ -327,7 +327,7 @@ export const Footer = () => {
         <div className="space-y-6 text-sm">
           <section>
             <h3 className="font-bold text-lg mb-3">第1条（目的）</h3>
-            <p>本利用規約（以下「本規約」）は、Datapocket（以下「当社」）が提供するeSIMサービス（以下「本サービス」）の利用条件を定めるものです。</p>
+            <p>本利用規約（以下「本規約」）は、Trippin（以下「当社」）が提供するeSIMサービス（以下「本サービス」）の利用条件を定めるものです。</p>
           </section>
           
           <section>
@@ -404,7 +404,7 @@ export const Footer = () => {
 
           <section>
             <h3 className="font-bold text-lg mb-3">5. お問い合わせ窓口</h3>
-            <p>個人情報に関するお問い合わせ：datapocket.jp@gmail.com</p>
+            <p>個人情報に関するお問い合わせ：Trippin.jp@gmail.com</p>
           </section>
         </div>
       </Modal>
@@ -418,7 +418,7 @@ export const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <h4 className="font-bold">事業者名</h4>
-              <p>Datapocket</p>
+              <p>Trippin</p>
             </div>
             <div>
               <h4 className="font-bold">代表者</h4>
@@ -434,7 +434,7 @@ export const Footer = () => {
             </div>
             <div>
               <h4 className="font-bold">メールアドレス</h4>
-              <p>datapocket.jp@gmail.com</p>
+              <p>Trippin.jp@gmail.com</p>
             </div>
             <div>
               <h4 className="font-bold">営業時間</h4>

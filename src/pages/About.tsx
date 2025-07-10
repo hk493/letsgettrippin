@@ -41,7 +41,7 @@ export const About = () => {
     {
       year: '2020',
       title: '会社設立',
-      description: 'DataPocket株式会社を設立し、日本旅行者のためのeSIMサービスを開始'
+      description: 'Trippin株式会社を設立し、日本旅行者のためのeSIMサービスを開始'
     },
     {
       year: '2021',
@@ -87,7 +87,7 @@ export const About = () => {
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            DataPocketについて
+            Trippinについて
           </h2>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
             日本旅行をより楽しく、より便利にするための総合プラットフォームを提供しています
@@ -183,7 +183,7 @@ export const About = () => {
                 <dl className="space-y-3">
                   <div>
                     <dt className="text-sm font-medium text-gray-500">会社名</dt>
-                    <dd className="text-gray-900">DataPocket株式会社</dd>
+                    <dd className="text-gray-900">Trippin株式会社</dd>
                   </div>
                   <div>
                     <dt className="text-sm font-medium text-gray-500">設立</dt>
@@ -216,7 +216,7 @@ export const About = () => {
                   </div>
                   <div>
                     <dt className="text-sm font-medium text-gray-500">メールアドレス</dt>
-                    <dd className="text-gray-900">info@datapocket.jp</dd>
+                    <dd className="text-gray-900">info@Trippin.jp</dd>
                   </div>
                 </dl>
               </div>

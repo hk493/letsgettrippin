@@ -72,8 +72,8 @@ export const TravelModeApp: React.FC<TravelModeProps> = ({
             </div>
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
               <img 
-                src="/datapocket-logo-latest.png" 
-                alt="DataPocket Mascot" 
+                src="/trippin-logo.png" 
+                alt="Trippin Mascot" 
                 className="w-12 h-12 object-contain"
               />
             </div>

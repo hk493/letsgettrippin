@@ -87,7 +87,7 @@ const HomePage: React.FC = () => {
     {
       name: "Sarah Kim",
       country: "🇰🇷 Seoul",
-      text: "DataPocket made my Tokyo trip incredible! The translation feature saved me so many times, and I saved ¥15,000 with the coupons!",
+      text: "Trippin made my Tokyo trip incredible! The translation feature saved me so many times, and I saved ¥15,000 with the coupons!",
       rating: 5,
       image: "👩‍💼",
       trip: "7-day Tokyo Adventure"
@@ -103,7 +103,7 @@ const HomePage: React.FC = () => {
     {
       name: "Alex Johnson",
       country: "🇺🇸 California",
-      text: "From eSIM setup to finding the best ramen shops, DataPocket was my perfect travel companion in Japan.",
+      text: "From eSIM setup to finding the best ramen shops, Trippin was my perfect travel companion in Japan.",
       rating: 5,
       image: "👨‍🎨",
       trip: "10-day Cultural Journey"
@@ -111,7 +111,7 @@ const HomePage: React.FC = () => {
     {
       name: "Maria Santos",
       country: "🇧🇷 São Paulo",
-      text: "The instant connection at Narita was a lifesaver! No more expensive roaming charges. DataPocket is genius!",
+      text: "The instant connection at Narita was a lifesaver! No more expensive roaming charges. Trippin is genius!",
       rating: 5,
       image: "👩‍🎓",
       trip: "5-day Business Trip"
@@ -178,16 +178,16 @@ const HomePage: React.FC = () => {
             <div className={`mb-8 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <div className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg mb-8">
                 <img 
-                  src="/datapocket-logo-latest.png" 
-                  alt="DataPocket" 
+                  src="/trippin-logo.png" 
+                  alt="Trippin" 
                   className="w-16 h-16 mr-4"
                   onError={(e) => {
-                    e.currentTarget.src = "/datapocket-logo.png";
+                    e.currentTarget.src = "/trippin-logo.png";
                   }}
                 />
                 <div className="text-left">
                   <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent block">
-                    DataPocket
+                    Trippin
                   </span>
                   <span className="text-sm text-gray-600">Your Japan Connection</span>
                 </div>
@@ -276,7 +276,7 @@ const HomePage: React.FC = () => {
               Everything You Need in One App
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stop juggling multiple apps. DataPocket is your all-in-one travel companion for Japan.
+              Stop juggling multiple apps. Trippin is your all-in-one travel companion for Japan.
             </p>
           </div>
 
@@ -313,7 +313,7 @@ const HomePage: React.FC = () => {
               What Travelers Say
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Join thousands of satisfied travelers who&apos;ve discovered Japan with DataPocket
+              Join thousands of satisfied travelers who&apos;ve discovered Japan with Trippin
             </p>
           </div>
 
@@ -466,7 +466,7 @@ const HomePage: React.FC = () => {
             Ready for Your Japan Adventure?
           </h2>
           <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
-            Join over 100,000 travelers who&apos;ve made their Japan dreams come true with DataPocket.
+            Join over 100,000 travelers who&apos;ve made their Japan dreams come true with Trippin.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">

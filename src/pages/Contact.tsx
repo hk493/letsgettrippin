@@ -32,7 +32,7 @@ export const Contact = () => {
     {
       icon: <MailIcon className="w-6 h-6" />,
       title: 'メール',
-      description: 'support@datapocket.jp',
+      description: 'support@Trippin.jp',
       response: '24時間以内に返信'
     },
     {
@@ -190,7 +190,7 @@ export const Contact = () => {
               <div className="text-gray-600">
                 <p>〒100-0001</p>
                 <p>東京都千代田区千代田1-1-1</p>
-                <p>DataPocket株式会社</p>
+                <p>Trippin株式会社</p>
               </div>
             </div>
           </div>

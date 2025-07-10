@@ -42,7 +42,7 @@ export const NewLandingPage = ({ onGetStarted }) => {
     {
       name: "Sarah Kim",
       country: "🇰🇷 Seoul",
-      text: "DataPocket made my Tokyo trip incredible! The translation feature saved me so many times, and I saved ¥15,000 with the coupons!",
+      text: "Trippin made my Tokyo trip incredible! The translation feature saved me so many times, and I saved ¥15,000 with the coupons!",
       rating: 5,
       image: "👩‍💼"
     },
@@ -56,7 +56,7 @@ export const NewLandingPage = ({ onGetStarted }) => {
     {
       name: "Alex Johnson",
       country: "🇺🇸 California",
-      text: "From eSIM setup to finding the best ramen shops, DataPocket was my perfect travel companion in Japan.",
+      text: "From eSIM setup to finding the best ramen shops, Trippin was my perfect travel companion in Japan.",
       rating: 5,
       image: "👨‍🎨"
     }
@@ -109,8 +109,8 @@ export const NewLandingPage = ({ onGetStarted }) => {
             <div className={`mb-8 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <div className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg mb-6">
                 <img 
-                  src="/datapocket-logo-latest.png" 
-                  alt="DataPocket" 
+                  src="/trippin-logo.png" 
+                  alt="Trippin" 
                   className="w-12 h-12 mr-3"
                 />
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -191,7 +191,7 @@ export const NewLandingPage = ({ onGetStarted }) => {
               Everything You Need in One App
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stop juggling multiple apps. DataPocket is your all-in-one travel companion.
+              Stop juggling multiple apps. Trippin is your all-in-one travel companion.
             </p>
           </div>
 
@@ -350,7 +350,7 @@ export const NewLandingPage = ({ onGetStarted }) => {
               Loved by Travelers Worldwide
             </h2>
             <p className="text-xl text-gray-600">
-              Join thousands of happy travelers who chose DataPocket
+              Join thousands of happy travelers who chose Trippin
             </p>
           </div>
 
@@ -391,7 +391,7 @@ export const NewLandingPage = ({ onGetStarted }) => {
             Ready for Your Next Adventure?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join over 50,000 travelers who've made their trips unforgettable with DataPocket
+            Join over 50,000 travelers who've made their trips unforgettable with Trippin
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

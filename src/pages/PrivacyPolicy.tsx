@@ -28,7 +28,7 @@ export const PrivacyPolicy = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-sm p-8">
           <div className="prose prose-lg max-w-none">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">DataPocketプライバシーポリシー</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Trippinプライバシーポリシー</h2>
             
             <p className="text-gray-600 mb-6">
               最終更新日: 2024年1月1日
@@ -114,9 +114,9 @@ export const PrivacyPolicy = () => {
               </p>
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-gray-700">
-                  <strong>DataPocket株式会社</strong><br />
+                  <strong>Trippin株式会社</strong><br />
                   個人情報保護担当者<br />
-                  メール: privacy@datapocket.jp<br />
+                  メール: privacy@Trippin.jp<br />
                   電話: 03-1234-5678
                 </p>
               </div>
@@ -153,10 +153,10 @@ export const PrivacyPolicy = () => {
               </p>
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-gray-700">
-                  <strong>DataPocket株式会社</strong><br />
+                  <strong>Trippin株式会社</strong><br />
                   個人情報保護担当者<br />
                   〒100-0001 東京都千代田区千代田1-1-1<br />
-                  メール: privacy@datapocket.jp<br />
+                  メール: privacy@Trippin.jp<br />
                   電話: 03-1234-5678
                 </p>
               </div>

@@ -69,7 +69,7 @@ export const HeroSection = ({ onGetStarted }) => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src="https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          src="/japan-scenery.jpg"
           alt="Beautiful Japan scenery with torii gates"
           className="w-full h-full object-cover"
         />
@@ -104,12 +104,12 @@ export const HeroSection = ({ onGetStarted }) => {
                   {/* Same padding, bigger logo */}
                   <div className="relative p-4 md:p-5">
                     <img
-                      src="/datapocket-logo-latest.png"
-                      alt="Datapocket Logo"
+                      src="/trippin-logo.png"
+                      alt="Trippin Logo"
                       className="h-24 md:h-32 lg:h-40 w-auto object-contain drop-shadow-md"
                       onError={(e) => {
                         console.log('Primary logo failed, trying fallback...')
-                        e.target.src = "/datapocket-logo.png"
+                        e.target.src = "/trippin-logo.png"
                         e.target.onerror = () => {
                           console.log('All logos failed, hiding element')
                           e.target.style.display = 'none'
@@ -132,12 +132,12 @@ export const HeroSection = ({ onGetStarted }) => {
                 </h1>
                 <div className="flex items-center mt-4">
                   <img 
-                    src="/datapocket-logo-latest.png" 
-                    alt="Datapocket Mascot" 
+                    src="/trippin-logo.png" 
+                    alt="Trippin Mascot" 
                     className="w-16 h-16 mr-4 mascot-bounce object-contain"
                     onError={(e) => {
                       console.log('Primary mascot image failed, trying fallback...')
-                      e.target.src = "/datapocket-logo.png"
+                      e.target.src = "/trippin-logo.png"
                       e.target.onerror = () => {
                         console.log('All mascot images failed, using emoji fallback')
                         e.target.style.display = 'none'
@@ -216,12 +216,12 @@ export const HeroSection = ({ onGetStarted }) => {
                   <div className="text-center mb-4">
                     <div className="flex items-center justify-center mb-4">
                       <img
-                        src="/datapocket-logo-latest.png"
-                        alt="Datapocket Logo"
+                        src="/trippin-logo.png"
+                        alt="Trippin Logo"
                         className="h-8 w-auto object-contain"
                         onError={(e) => {
                           console.log('Primary logo failed, trying fallback...')
-                          e.target.src = "/datapocket-logo.png"
+                          e.target.src = "/trippin-logo.png"
                         }}
                       />
                       <h3 className="font-bold text-gray-800 ml-2">Your Japan eSIM</h3>
@@ -268,12 +268,12 @@ export const HeroSection = ({ onGetStarted }) => {
             {/* Mascot Character */}
             <div className="absolute -bottom-6 -right-6 bg-white rounded-full p-4 shadow-xl">
               <img 
-                src="/datapocket-logo-latest.png" 
-                alt="Datapocket Mascot" 
+                src="/trippin-logo.png" 
+                alt="Trippin Mascot" 
                 className="w-16 h-16 object-contain mascot-bounce"
                 onError={(e) => {
                   console.log('Primary mascot image failed, trying fallback...')
-                  e.target.src = "/datapocket-logo.png"
+                  e.target.src = "/trippin-logo.png"
                   e.target.onerror = () => {
                     console.log('All mascot images failed, using emoji fallback')
                     e.target.style.display = 'none'

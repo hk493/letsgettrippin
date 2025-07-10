@@ -55,7 +55,7 @@ export const Partners = () => {
     {
       icon: <StarIcon className="w-6 h-6" />,
       title: 'ブランド価値向上',
-      description: 'DataPocketとの提携によりブランド認知度を向上'
+      description: 'Trippinとの提携によりブランド認知度を向上'
     },
     {
       icon: <UsersIcon className="w-6 h-6" />,
@@ -94,7 +94,7 @@ export const Partners = () => {
             一緒に日本旅行の未来を創りませんか？
           </h2>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            DataPocketは、世界中の旅行者に最高の日本旅行体験を提供するため、
+            Trippinは、世界中の旅行者に最高の日本旅行体験を提供するため、
             様々な業界のパートナー企業と協力しています。
           </p>
         </div>
@@ -202,7 +202,7 @@ export const Partners = () => {
                 <h3 className="text-xl font-bold text-gray-900 mb-2">販売パートナーシップ</h3>
               </div>
               <p className="text-gray-600 text-center">
-                お客様の製品・サービスをDataPocketプラットフォームで販売し、
+                お客様の製品・サービスをTrippinプラットフォームで販売し、
                 新しい販売チャネルを提供します。API連携による自動化も可能です。
               </p>
             </div>

@@ -1,238 +1,404 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { ArrowRightIcon, GlobeIcon, PlaneIcon, MapIcon, StarIcon, CheckIcon, WifiIcon, SmartphoneIcon, CreditCardIcon, ShieldIcon } from 'lucide-react';
+import { ArrowRightIcon, GlobeIcon, PlaneIcon, MapIcon, StarIcon, CheckIcon, WifiIcon, SmartphoneIcon, CreditCardIcon, ShieldIcon, RocketIcon, SparklesIcon, CalendarIcon, UserIcon, HeartIcon, CameraIcon, UtensilsIcon, BuildingIcon, CarIcon, ShoppingBagIcon } from 'lucide-react';
 import { NavigationMenu } from '../components/NavigationMenu';
 
-export const LandingPage = () => {
-  const { t } = useLanguage();
+interface Language {
+  code: string;
+  name: string;
+  flag: string;
+  font: string;
+  pageTitle: string;
+  translations: Record<string, any>;
+}
 
-  const handleNavigate = (path: string) => {
+interface LanguageContextType {
+  currentLanguage: Language;
+  changeLanguage: (code: string) => void;
+  t: (key: string) => string;
+  languages: Language[];
+}
+
+export const LandingPage = () => {
+  const { t, currentLanguage, changeLanguage, languages } = useLanguage() as LanguageContextType;
+  const [showLanguageModal, setShowLanguageModal] = useState(true);
+  const [selectedLanguage, setSelectedLanguage] = useState('ja');
+
+  // Show language modal on first visit
+  useEffect(() => {
+    const hasVisited = localStorage.getItem('hasVisited');
+    if (!hasVisited) {
+      setShowLanguageModal(true);
+      localStorage.setItem('hasVisited', 'true');
+    }
+  }, []);
+
+  const handleNavigate = (path: string): void => {
     window.location.href = path;
+  };
+
+  const handleLanguageSelect = (languageCode: string) => {
+    setSelectedLanguage(languageCode);
+  };
+
+  const handleConfirmLanguage = () => {
+    try {
+      if (typeof changeLanguage === 'function') {
+        changeLanguage(selectedLanguage);
+      }
+    } catch (error) {
+      console.log('Language change error:', error);
+    }
+    setTimeout(() => {
+      setShowLanguageModal(false);
+    }, 300);
+  };
+
+  const handleGetStarted = () => {
+    window.location.href = '/planner';
   };
 
   const features = [
     {
-      icon: <WifiIcon className="w-8 h-8" />,
-      title: '日本eSIM',
-      description: '日本旅行に最適なeSIMプラン。高速データ通信で安心して旅行を楽しめます。',
-      color: 'bg-blue-500'
+      icon: <MapIcon className="w-6 h-6 text-white" />,
+      title: "旅行・ホテルを予約",
+      description: "Save up to 50%",
     },
     {
-      icon: <MapIcon className="w-8 h-8" />,
-      title: 'AI旅行プランナー',
-      description: 'AIがあなたの好みに合わせて完璧な旅行プランを作成します。',
-      color: 'bg-purple-500'
+      icon: <BuildingIcon className="w-6 h-6 text-white" />,
+      title: "荷物預かり所を探す",
+      description: "from ¥300/day",
     },
-    {
-      icon: <PlaneIcon className="w-8 h-8" />,
-      title: 'フライト検索',
-      description: '世界中から日本への最安値フライトを検索できます。',
-      color: 'bg-green-500'
-    }
   ];
 
-  const benefits = [
-    '即座にアクティベーション',
-    '24時間サポート',
-    '安全な決済',
-    '無料Wi-Fiスポット情報',
-    '多言語対応',
-    '30日間返金保証'
+  const steps = [
+    {
+      icon: <GlobeIcon className="w-6 h-6" />,
+      title: "魔法箱を開ける",
+      description: "言語＆初期設定で、あなたの旅の準備を始めましょう",
+      features: [
+        "アニメーション or チャット形式で出迎え（多言語対応）",
+        "「どこに行く？」を皮切りに質問が始まる",
+        "自動言語判定＋手動切替対応",
+      ]
+    },
+    {
+      icon: <UserIcon className="w-6 h-6" />,
+      title: "あなたの旅をヒアリング",
+      description: "AIチャットUI or カードUIで旅の希望を教えてください",
+      features: [
+        "行きたい場所（国・都市・景勝地など）",
+        "旅行日数・時期",
+        "好きなスタイル（アウトドア・グルメなど）",
+        "予算と同行者の構成",
+      ]
+    },
+    {
+      icon: <SparklesIcon className="w-6 h-6" />,
+      title: "AIが旅程を提案",
+      description: "無料プレビューで旅のイメージを確認",
+      features: [
+        "Day1〜DayXのプランをカード形式で表示",
+        "Google Maps 経路・移動時間を自動反映",
+        "TripAdvisorから人気スポットを選定",
+      ]
+    },
+    {
+      icon: <ShieldIcon className="w-6 h-6" />,
+      title: "認証＆アカウント作成",
+      description: "旅の保存やeSIM特典にはログインが必要です",
+      features: [
+        "Google・Apple・LINEなどのSNS認証",
+        "旅の履歴を保存",
+        "次回の提案に活用",
+      ]
+    },
+    {
+      icon: <CreditCardIcon className="w-6 h-6" />,
+      title: "プラン購入・eSIM・レンタカー一括決済",
+      description: "便利なサービスをまとめて予約",
+      features: [
+        "月額2,500円のプラン購入",
+        "eSIM 1GB無料付与",
+        "レンタカー・体験予約も可能",
+      ]
+    },
+    {
+      icon: <MapIcon className="w-6 h-6" />,
+      title: "旅の最終調整",
+      description: "プランを自由にカスタマイズ",
+      features: [
+        "ドラッグ＆ドロップで日程変更",
+        "Google Mapsと15分前アラーム通知",
+        "翻訳機能や持ち物リスト自動生成",
+      ]
+    },
+    {
+      icon: <HeartIcon className="w-6 h-6" />,
+      title: "旅中サポート＆シェア機能",
+      description: "AIがリアルタイムでサポート",
+      features: [
+        "AIチャットで旅先の相談が可能",
+        "SNSで旅程シェア（OGP画像付き）",
+        "レビュー投稿で次回提案に活用",
+      ]
+    },
+  ];
+
+  const interests = [
+    { icon: <BuildingIcon />, label: "歴史／文化" },
+    { icon: <BuildingIcon />, label: "宗教／神社仏閣" },
+    { icon: <StarIcon />, label: "アニメ・漫画" },
+    { icon: <StarIcon />, label: "伝統体験" },
+    { icon: <RocketIcon />, label: "最新テクノロジー" },
+    { icon: <ShoppingBagIcon />, label: "ファッション・ショッピング" },
+    { icon: <UtensilsIcon />, label: "グルメ" },
+    { icon: <CameraIcon />, label: "写真・インスタ映え" },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      <NavigationMenu onNavigate={handleNavigate} />
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <div className="flex justify-center mb-8">
-              <img 
-                src="/datapocket-logo-latest.png" 
-                alt="DataPocket" 
-                className="h-20 w-auto"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const fallback = document.createElement('div');
-                  fallback.innerText = '🦊 DataPocket';
-                  fallback.setAttribute('class', 'text-4xl font-bold text-gray-800');
-                  target.parentNode?.appendChild(fallback);
-                }}
-              />
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                日本旅行を
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                完璧に
-              </span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              eSIM、AI旅行プランナー、フライト検索で、あなたの日本旅行をより快適で楽しいものにします。
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center justify-center">
-                eSIMプランを選択
-                <ArrowRightIcon className="ml-2 w-5 h-5" />
-              </button>
-              <button className="bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg border-2 border-gray-300 hover:bg-gray-50 transition-all duration-300 flex items-center justify-center">
-                AI旅行プランナー
-                <MapIcon className="ml-2 w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Features Section */}
-      <div className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              すべてが揃った旅行プラットフォーム
-            </h2>
-            <p className="text-xl text-gray-600">
-              日本旅行に必要なすべてのサービスをワンストップで提供
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
-                <div className={`${feature.color} text-white rounded-lg p-4 w-16 h-16 flex items-center justify-center mb-6`}>
-                  {feature.icon}
+    <div className="min-h-screen japan-bg-sakura">
+      <div className="min-h-screen japan-bg-overlay">
+        <NavigationMenu onNavigate={handleNavigate} />
+        
+        {/* Language Selection Modal */}
+        {showLanguageModal && (
+          <div className="language-modal-container bg-black/30 backdrop-blur-sm transition-opacity duration-300">
+            <div className="language-modal-content bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 w-full max-w-sm sm:max-w-lg md:max-w-3xl transform transition-all duration-300 scale-100">
+              <div className="text-center mb-4 sm:mb-6">
+                {/* Logo and Welcome Message */}
+                <div className="mb-8">
+                  <img
+                    src="/trippin-logo.png"
+                    alt="TRIPPIN Logo"
+                    className="h-32 mx-auto mb-4"
+                  />
+                  <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+                    Welcome to TRIPPIN
+                  </h1>
+                  <p className="text-xl md:text-2xl text-gray-600 mb-6">
+                    日本旅行のすべてを、ポケットの中に
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
-      {/* Benefits Section */}
-      <div className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                なぜDataPocketを選ぶのか
-              </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                日本旅行の専門家として、最高の体験を提供します。安心、便利、そして楽しい旅行を実現します。
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center">
-                    <CheckIcon className="w-5 h-5 text-green-500 mr-3" />
-                    <span className="text-gray-700">{benefit}</span>
+                {/* Language Grid */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  {languages.map((lang) => (
+                    <div key={lang.code} className="w-full">
+                      <button
+                        onClick={() => handleLanguageSelect(lang.code)}
+                        className={`
+                          flex flex-col items-center p-3 sm:p-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105
+                          ${selectedLanguage === lang.code
+                            ? 'bg-gradient-to-br from-pink-100 to-blue-100 border-2 border-pink-300 scale-105' 
+                            : 'bg-white hover:bg-gray-50 border-2 border-transparent hover:border-gray-200'
+                          }
+                          w-full group
+                        `}
+                      >
+                        <div className={`text-2xl sm:text-3xl md:text-4xl mb-2 transition-transform duration-300 ${selectedLanguage === lang.code ? 'scale-110' : 'group-hover:scale-110'}`}>
+                          {lang.flag}
+                        </div>
+                        <div className={`text-sm sm:text-base font-semibold transition-colors duration-300 text-center ${selectedLanguage === lang.code ? 'text-indigo-600' : 'text-gray-800'}`}>
+                          {lang.name}
+                        </div>
+                        {selectedLanguage === lang.code && (
+                          <div className="mt-2 w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full flex items-center justify-center">
+                            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full"></div>
+                          </div>
+                        )}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Confirmation Section */}
+                <div className="text-center space-y-3 sm:space-y-4">
+                  <div className="inline-flex items-center bg-gradient-to-r from-pink-100 to-blue-100 rounded-full px-3 sm:px-4 py-2 mb-3 sm:mb-4">
+                    <span className="text-xs sm:text-sm text-gray-600">
+                      Selected: {languages.find(l => l.code === selectedLanguage)?.flag} {languages.find(l => l.code === selectedLanguage)?.name}
+                    </span>
+                  </div>
+                  
+                  <button
+                    onClick={handleConfirmLanguage}
+                    className="w-full sm:w-auto bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white px-4 sm:px-6 py-3 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base transition-all duration-300 flex items-center justify-center mx-auto shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    <CheckIcon size={16} className="mr-2" />
+                    <span className="text-center leading-tight">
+                      Confirm Language<br className="sm:hidden" />
+                      <span className="hidden sm:inline"> / </span>
+                      <span className="text-xs sm:text-sm opacity-90">
+                        言語を確定 / 确认语言 / 언어 확정
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0">
+            <img
+              src="/japan-scenery.jpg"
+              alt="Beautiful Japan scenery"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 via-purple-900/60 to-pink-900/70"></div>
+          </div>
+
+          <div className="container mx-auto px-6 relative z-10 pt-20">
+            <div className="text-center">
+              {/* Logo and Welcome Message */}
+              <div className="mb-8">
+                <img
+                  src="/trippin-logo.png"
+                  alt="TRIPPIN Logo"
+                  className="h-32 mx-auto mb-4"
+                />
+                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+                  Welcome to TRIPPIN
+                </h1>
+                <p className="text-xl md:text-2xl text-white/90 mb-6">
+                  日本旅行のすべてを、ポケットの中に
+                </p>
+              </div>
+
+              {/* Main Features */}
+              <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+                {features.map((feature, index) => (
+                  <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                    <div className="flex items-center justify-center mb-4">
+                      {feature.icon}
+                      <h3 className="text-xl font-semibold text-white ml-2">{feature.title}</h3>
+                    </div>
+                    <p className="text-white/90">{feature.description}</p>
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="relative">
-              <div className="bg-white rounded-2xl shadow-xl p-8">
-                <div className="flex items-center mb-6">
-                  <div className="bg-blue-100 rounded-full p-3 mr-4">
-                    <SmartphoneIcon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">簡単セットアップ</h3>
-                    <p className="text-gray-600">QRコードをスキャンするだけ</p>
-                  </div>
-                </div>
-                <div className="flex items-center mb-6">
-                  <div className="bg-green-100 rounded-full p-3 mr-4">
-                    <GlobeIcon className="w-8 h-8 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">日本全国対応</h3>
-                    <p className="text-gray-600">どこでも高速インターネット</p>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="bg-purple-100 rounded-full p-3 mr-4">
-                    <ShieldIcon className="w-8 h-8 text-purple-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">安全な決済</h3>
-                    <p className="text-gray-600">SSL暗号化で保護</p>
-                  </div>
-                </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col md:flex-row gap-4 justify-center">
+                <button
+                  onClick={handleGetStarted}
+                  className="bg-gradient-to-r from-pink-500 to-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                >
+                  旅を始める
+                  <ArrowRightIcon className="inline-block ml-2 w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => handleNavigate('/plans')}
+                  className="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/30 transform hover:scale-105 transition-all duration-300"
+                >
+                  プランを見る
+                </button>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* CTA Section */}
-      <div className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            今すぐ始めましょう
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            日本旅行をより楽しく、より便利に。DataPocketで完璧な旅行体験を。
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300">
-              無料で始める
-            </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
-              詳細を見る
-            </button>
+        {/* How It Works Section */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+              TRIPPINで旅をもっと楽しく
+            </h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {steps.map((step, index) => (
+                <div key={index} className="bg-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-gradient-to-r from-pink-500 to-blue-500 p-3 rounded-full text-white">
+                      {step.icon}
+                    </div>
+                    <h3 className="text-xl font-semibold ml-4">{step.title}</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4">{step.description}</p>
+                  <ul className="space-y-2">
+                    {step.features.map((feature, fIndex) => (
+                      <li key={fIndex} className="flex items-start">
+                        <CheckIcon className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1" />
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">DataPocket</h3>
-              <p className="text-gray-400">
-                日本旅行をより楽しく、より便利にするための総合プラットフォーム
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">サービス</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>日本eSIM</li>
-                <li>AI旅行プランナー</li>
-                <li>フライト検索</li>
-                <li>デバイス管理</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">サポート</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="/help" className="hover:text-white transition-colors">ヘルプセンター</a></li>
-                <li><a href="/contact" className="hover:text-white transition-colors">お問い合わせ</a></li>
-                <li><a href="/help" className="hover:text-white transition-colors">よくある質問</a></li>
-                <li><a href="/terms" className="hover:text-white transition-colors">利用規約</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">会社情報</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="/about" className="hover:text-white transition-colors">会社概要</a></li>
-                <li><a href="/privacy" className="hover:text-white transition-colors">プライバシーポリシー</a></li>
-                <li><a href="/careers" className="hover:text-white transition-colors">採用情報</a></li>
-                <li><a href="/partners" className="hover:text-white transition-colors">パートナー</a></li>
-              </ul>
+        {/* Interests Section */}
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+              あなたの興味に合わせた旅をご提案
+            </h2>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {interests.map((interest, index) => (
+                <div key={index} className="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300">
+                  <div className="bg-gradient-to-r from-pink-500 to-blue-500 p-3 rounded-full text-white w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+                    {interest.icon}
+                  </div>
+                  <p className="font-medium text-gray-800">{interest.label}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 DataPocket. All rights reserved.</p>
+        </section>
+
+        {/* Premium Features Section */}
+        <section className="py-20 bg-gradient-to-r from-blue-900 to-purple-900 text-white">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+              💎 プレミアム特典
+            </h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-4">柔軟なカスタマイズ</h3>
+                <p>同行者・予算に合わせた最適化が可能です</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-4">eSIMデータ割引</h3>
+                <p>通信料金がお得になります</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-4">予約サポート</h3>
+                <p>ホテル・レンタカーの予約をサポート</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-4">旅の持ち物リスト</h3>
+                <p>自動生成された持ち物リストを共有可能</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-4">AIリアルタイムサポート</h3>
+                <p>現地での質問にAIがお答えします</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-4">翻訳サポート</h3>
+                <p>テキスト・チャットベースの翻訳機能</p>
+              </div>
+            </div>
+
+            <div className="text-center mt-12">
+              <p className="text-2xl font-bold mb-6">月額 2,500円でこれらすべての特典が使い放題！</p>
+              <button
+                onClick={handleGetStarted}
+                className="bg-gradient-to-r from-pink-500 to-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+              >
+                今すぐ始める
+                <ArrowRightIcon className="inline-block ml-2 w-5 h-5" />
+              </button>
+            </div>
           </div>
-        </div>
-      </footer>
+        </section>
+      </div>
     </div>
   );
 }; 

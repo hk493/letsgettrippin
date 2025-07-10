@@ -37,8 +37,8 @@ const GeneratingStepContent = () => {
       <div className="mb-8">
         <img 
           src="/
-          datapocket-logo-latest.png" 
-          alt="DataPocket AI" 
+          Trippin-logo-latest.png" 
+          alt="Trippin AI" 
           className="w-32 h-32 mx-auto mb-6 animate-pulse object-contain"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
@@ -253,8 +253,8 @@ export const TravelPlannerPage = () => {
     <div className="text-center max-w-4xl mx-auto">
       <div className="mb-8">
         <img 
-          src="/datapocket-logo-latest.png" 
-          alt="DataPocket AI" 
+          src="/trippin-logo.png" 
+          alt="Trippin AI" 
           className="w-24 h-24 mx-auto mb-6 mascot-bounce object-contain"
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = 'none'

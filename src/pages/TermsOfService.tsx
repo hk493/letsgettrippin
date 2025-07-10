@@ -28,7 +28,7 @@ export const TermsOfService = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-sm p-8">
           <div className="prose prose-lg max-w-none">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">DataPocket利用規約</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Trippin利用規約</h2>
             
             <p className="text-gray-600 mb-6">
               最終更新日: 2024年1月1日
@@ -37,7 +37,7 @@ export const TermsOfService = () => {
             <section className="mb-8">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">第1条（適用）</h3>
               <p className="text-gray-700 mb-4">
-                本規約は、DataPocket株式会社（以下「当社」）が提供するサービス（以下「本サービス」）の利用条件を定めるものです。
+                本規約は、Trippin株式会社（以下「当社」）が提供するサービス（以下「本サービス」）の利用条件を定めるものです。
               </p>
               <p className="text-gray-700">
                 ユーザーは、本規約に従って本サービスを利用するものとします。

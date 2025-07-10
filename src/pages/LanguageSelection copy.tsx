@@ -70,18 +70,18 @@ export const LanguageSelection = ({ onContinue }) => {
                     {/* Significantly bigger logo */}
                     <div className="flex-shrink-0">
                       <img
-                        src="/datapocket-logo-latest.png"
-                        alt="Datapocket Logo"
+                        src="/trippin-logo.png"
+                        alt="Trippin Logo"
                         className="h-20 sm:h-24 md:h-32 lg:h-40 w-auto object-contain"
                         onError={(e) => {
                           console.log('Primary logo failed, trying fallback...')
-                          e.target.src = "/datapocket-logo.png"
+                          e.target.src = "/trippin-logo.png"
                         }}
                       />
                     </div>
                     <div className="text-center lg:text-left">
                       <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent leading-tight">
-                        Datapocket
+                        Trippin
                       </h1>
                       <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mt-2">
                         Your Japan Connection
@@ -93,12 +93,12 @@ export const LanguageSelection = ({ onContinue }) => {
                 {/* Kitsune below Welcome */}
                 <div className="mb-4">
                   <img 
-                    src="/datapocket-logo-latest.png" 
-                    alt="Datapocket Mascot" 
+                    src="/trippin-logo.png" 
+                    alt="Trippin Mascot" 
                     className="w-16 sm:w-20 md:w-24 h-16 sm:h-20 md:h-24 mx-auto mascot-bounce object-contain"
                     onError={(e) => {
                       console.log('Primary mascot image failed, trying fallback...')
-                      e.target.src = "/datapocket-logo.png"
+                      e.target.src = "/trippin-logo.png"
                       e.target.onerror = () => {
                         console.log('All mascot images failed, using emoji fallback')
                         e.target.style.display = 'none'
@@ -112,7 +112,7 @@ export const LanguageSelection = ({ onContinue }) => {
                 </div>
                 
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">
-                  Welcome to Datapocket
+                  Welcome to Trippin
                 </h2>
                 <p className="text-sm sm:text-base md:text-lg text-gray-600 px-2">Choose your language to continue</p>
               </div>

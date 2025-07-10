@@ -7,7 +7,7 @@ export const BrandIdentity = () => {
       {/* Brand Overview */}
       <section className="text-center">
         <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-          DataPocket Brand Identity
+          Trippin Brand Identity
         </h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           "旅の通信を、旅の体験に。" - Transforming travel connectivity into travel experiences
@@ -185,7 +185,7 @@ export const BrandIdentity = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 text-gray-700">Primary Font: Poppins</h3>
             <div className="space-y-4">
-              <div className="text-4xl font-bold">DataPocket</div>
+              <div className="text-4xl font-bold">Trippin</div>
               <div className="text-2xl font-semibold">Your Travel Companion</div>
               <div className="text-lg font-medium">Connecting you to amazing experiences</div>
               <div className="text-base">Perfect for headlines, buttons, and key messaging</div>
@@ -279,11 +279,11 @@ export const BrandIdentity = () => {
                 <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-3">
                   <GlobeIcon className="w-5 h-5" />
                 </div>
-                <span className="font-bold text-lg">DataPocket</span>
+                <span className="font-bold text-lg">Trippin</span>
               </div>
               <div className="text-sm opacity-90">
                 <div>Your Travel Companion</div>
-                <div className="mt-2">datapocket.com</div>
+                <div className="mt-2">Trippin.com</div>
               </div>
             </div>
           </div>
